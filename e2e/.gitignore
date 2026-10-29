@@ -1,0 +1,14 @@
+node_modules/
+.runtime/
+reports/
+.env
+.env.*
+!.env.example
+test-results/
+playwright-report/
+blob-report/
+allure-results/
+allure-report/
+playwright/
+*.tsbuildinfo
+.DS_Store

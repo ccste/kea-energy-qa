@@ -1,0 +1,29 @@
+{
+  "name": "@kea/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Functional browser tests for the deployed Kea Energy customer website.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "test": "node --import tsx scripts/run-suite.ts",
+    "test:all": "node --import tsx scripts/run-suite.ts --include-ai",
+    "test:ai": "node --import tsx scripts/run-suite.ts --ai-only",
+    "test:headed": "node --import tsx scripts/run-suite.ts --headed",
+    "test:list": "node --import tsx scripts/run-suite.ts --list",
+    "typecheck": "tsc --noEmit",
+    "report": "playwright show-report reports/latest/html",
+    "report:allure": "allure generate reports/latest/allure-results --clean -o reports/latest/allure-report",
+    "report:allure:open": "allure open reports/latest/allure-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.4.1",
+    "allure-commandline": "2.46.1",
+    "allure-playwright": "3.14.0",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2"
+  }
+}
