@@ -11,6 +11,7 @@ import { SettingsPage } from '../pages/SettingsPage'
 import { Sidebar } from '../pages/components/Sidebar'
 import { TopBar } from '../pages/components/TopBar'
 import { ToastStack } from '../pages/components/ToastStack'
+import { LogoutDialog } from '../pages/components/LogoutDialog'
 import { authStatePath, requireManagedRun, runDirectory } from '../utils/runtime'
 
 export type TestOptions = { account: AccountMetadata; signedIn: boolean; resetAlerts: boolean }
@@ -24,6 +25,7 @@ type Fixtures = {
   sidebar: Sidebar
   topBar: TopBar
   toasts: ToastStack
+  logoutDialog: LogoutDialog
   _ready: void
   _alertIsolation: void
   _defectEvidence: void
@@ -57,6 +59,7 @@ export const test = base.extend<TestOptions & Fixtures>({
   sidebar: async ({ page }, use) => { await use(new Sidebar(page)) },
   topBar: async ({ page }, use) => { await use(new TopBar(page)) },
   toasts: async ({ page }, use) => { await use(new ToastStack(page)) },
+  logoutDialog: async ({ page }, use) => { await use(new LogoutDialog(page)) },
 
   _alertIsolation: [async ({ api, account, resetAlerts }, use, testInfo) => {
     if (testInfo.project.name === 'settings' && (account.alias !== 'rangi' || !resetAlerts)) {

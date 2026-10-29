@@ -7,6 +7,7 @@ export class TopBar {
   readonly profileMenu: Locator
   readonly profileName: Locator
   readonly profileCustomerId: Locator
+  readonly logout: Locator
 
   constructor(page: Page) {
     this.root = page.getByRole('banner').filter({ has: page.getByRole('textbox', { name: 'Search pages' }) })
@@ -16,6 +17,7 @@ export class TopBar {
     this.profileMenu = this.root.locator('.profile-menu')
     this.profileName = this.profileMenu.locator('header strong')
     this.profileCustomerId = this.profileMenu.locator('header small')
+    this.logout = this.profileMenu.getByRole('button', { name: 'Logout', exact: true })
   }
 
   async openProfileMenu(): Promise<void> {

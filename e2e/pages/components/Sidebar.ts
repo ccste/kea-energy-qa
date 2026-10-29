@@ -5,6 +5,8 @@ export class Sidebar {
   readonly navigation: Locator
   readonly utilities: Locator
   readonly logout: Locator
+  readonly logoutLabel: Locator
+  readonly toggle: Locator
 
   constructor(page: Page) {
     this.navigation = page.getByRole('navigation', { name: 'Primary navigation', exact: true })
@@ -12,6 +14,8 @@ export class Sidebar {
     // Utility actions sit outside the labelled primary navigation.
     this.utilities = this.root.locator('.sidebar-utilities')
     this.logout = this.utilities.getByRole('button', { name: 'Logout', exact: true })
+    this.logoutLabel = this.logout.getByText('Logout', { exact: true })
+    this.toggle = this.root.getByRole('button', { name: /^(?:Expand|Collapse) navigation$/ })
   }
 
   destination(name: string): Locator {
