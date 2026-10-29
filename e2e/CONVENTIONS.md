@@ -55,3 +55,5 @@ Record manual-only work in coverage and the review checklist. Do not create pass
 Never commit passwords, tokens, saved browser states, customer downloads, or generated reports. Logs and attachments must not print credential responses. Examples must run from this directory alone. Commit only reviewed source and intentional, reviewed screenshot baselines.
 
 Every rebuild commit must use Stephen Li <stephenccu@gmail.com> as both author and committer. Check both identities and the commit message with `git log` before every push, including portfolio synchronization. Keep messages, pull request text, code, comments, and documentation in English. Use one continuing pull request and one commit per reviewed implementation step. Address review feedback with new commits; do not amend or force-push published history.
+
+For the team repository, assign the continuing rebuild pull request to `ccste` and request review from `nanhangfei`. The portfolio repository receives reviewed steps through the synchronization script and does not use pull requests for this workflow.

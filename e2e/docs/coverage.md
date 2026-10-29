@@ -2,32 +2,34 @@
 
 The approved design has **173 leaves across 12 features**. One leaf represents one case; data-driven leaves produce one result per account or input. Leaf counts measure traceability, not the eventual Playwright test count.
 
-This foundation contains two representative proof cases. A seed verifies only the stated account and checkpoints; it does not complete its feature or its data-driven leaf.
+Login implements all 23 of its leaves as 24 tests. Usage has one representative Dashboard proof row for July Household; that row does not complete its 15-account design leaf. Implementation and execution review remain separate.
 
 | Feature | Design leaves | Current implementation | Remaining work |
 |---|---:|---|---|
-| Login | 23 | Protected-page redirection seed | Full Login coverage |
+| Login | 23 | All 23 leaves implemented as 24 tests | See [Login mapping](login-coverage.md) and current run results |
 | Reset Password | 9 | Not implemented | All leaves and account rows |
 | Logout | 7 | Not implemented | All leaves |
 | Profile Management | 15 | Not implemented | All leaves and account rows |
 | Power Bill Shock Warning | 14 | Not implemented | Read cases and isolated settings-linked cases |
-| Usage | 20 | Dashboard summary seed, July Household only | All 15 summary accounts and remaining leaves |
+| Usage | 20 | Dashboard summary seed, July Household only | Remaining 14 summary accounts and other leaves |
 | Billing | 14 | Not implemented | All leaves and account rows |
 | Plan Request | 12 | Not implemented | All leaves, including nine selection combinations |
 | Sparky AI | 29 | Not implemented | Chat mocks, live checks, one manual review leaf |
 | Settings Change | 16 | Not implemented | All leaves and reviewed Mac screenshot baselines |
 | FAQs | 9 | Not implemented | All topics, questions, and search rows |
 | Contact | 5 | Not implemented | All leaves; external-app boundary documented |
-| **Total** | **173** | **2 provisional seed mappings** | **171 leaves without a seed; both seeds need feature review** |
+| **Total** | **173** | **23 complete leaf mappings and 1 partial leaf** | **150 leaves remain unfinished, including the partial Usage leaf** |
 
-## Foundation seeds
+## Implemented coverage
+
+The [Login mapping](login-coverage.md) lists every implemented Login leaf. The original foundation proofs remain in their feature specs:
 
 | Design path | Account | Proof scope |
 |---|---|---|
 | Login › Access protected pages › Signed out: opening a protected page redirects to /login | Signed out | Opening a protected route shows Login |
 | Usage › View the usage summary on the Dashboard › Positive Testing › The four tiles match the API (all 15 accounts) | July Household (`H-JUL`) | Saved sign-in state, Dashboard controls, four API-backed summary values |
 
-The first seed does not establish full Login coverage. The second is one provisional row of the 15-account leaf. Extend these seeds in their feature steps instead of duplicating them as foundation-only acceptance tests.
+The protected-route case is included in the complete Login totals. The summary proof remains one row of the Usage leaf and will be expanded in the Usage step, without duplicating it as a foundation-only acceptance test.
 
 ## Coverage rules
 

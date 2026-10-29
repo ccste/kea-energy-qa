@@ -4,7 +4,7 @@ Functional browser tests for the deployed Kea Energy customer website, written i
 
 ## Current status
 
-The foundation contains two representative proof tests: signed-out protected-page redirection and the Dashboard usage summary for July Household. These prove the infrastructure; Login and Usage coverage remains incomplete. See [coverage](docs/coverage.md) for the 173-leaf design inventory and implementation status.
+Login now covers all 23 design leaves as 24 tests, including separate Google and Apple rows. The Dashboard usage summary for July Household remains a representative proof of saved authentication and API-backed values; full Usage coverage is pending. See [coverage](docs/coverage.md) for the 173-leaf design inventory and [Login coverage](docs/login-coverage.md) for its leaf-to-spec mapping.
 
 ## Install and run
 
@@ -28,7 +28,7 @@ The deployed site is shared with demonstrations. Use a small worker count and co
 |---|---|
 | `npm test` | Implemented functional tests, excluding live `@ai` tests |
 | `npm test -- --grep @smoke --workers 2` | Implemented smoke tests |
-| `npm test -- tests/login --workers 2` | One feature, once its specs exist |
+| `npm test -- tests/login --workers 2` | The complete Login feature |
 | `npm run test:ai` | Implemented live Sparky tests only |
 | `npm run test:all` | Implemented functional and live Sparky tests |
 | `npm run test:list` | List selected tests without signing in or resetting accounts |

@@ -8,7 +8,6 @@ Affected tests retain the correct expectation and a `defect` annotation. The ann
 
 | Finding | Feature / behaviour | Expected behaviour |
 |---|---|---|
-| #1 | Login / email spaces | Leading and trailing spaces are ignored |
 | #2 | Profile / displayed name | Profile and avatar names agree, including Generated Household |
 | #3 | Profile / invalid phone | Invalid NZ phone numbers are rejected |
 | #4 | Usage / daily axis | Labels show time without overlapping timezone suffixes |
@@ -48,6 +47,7 @@ The phone requirement in #3 and cycle interpretation in #39 remain explicit acce
 
 | Finding | Current design status |
 |---|---|
+| #1 | Not reproduced on 2026-10-29 in Chromium: normal email entry with surrounding spaces signed in successfully. The regression test retains a reference to the earlier suspicion |
 | #5 | Clear-date behaviour was reported fixed; verify the expected behaviour |
 | #22 | Account-persisted theme was replaced by a theme lasting for one sign-in |
 | #23 | Theme synchronization was reported fixed; verify both controls |
