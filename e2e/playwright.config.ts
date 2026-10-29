@@ -3,11 +3,8 @@ import type { TestOptions } from './fixtures/test'
 import { accountByAlias } from './data/accounts'
 import { reportDirectory } from './utils/runtime'
 
-// The runner enforces phase order even when product tests fail.
-if (!process.env.E2E_PHASE) {
-  throw new Error('Use npm test (or npm run test:list) to preserve account isolation.')
-}
-
+// Editors may load the config without starting a managed test run.
+const phase = process.env.E2E_PHASE ?? 'discovery'
 const workers = Number(process.env.WORKERS ?? 2)
 if (!Number.isInteger(workers) || workers < 1 || workers > 4) {
   throw new Error('WORKERS must be an integer from 1 to 4.')
@@ -15,22 +12,23 @@ if (!Number.isInteger(workers) || workers < 1 || workers > 4) {
 
 export default defineConfig<TestOptions>({
   testDir: './tests',
-  outputDir: `${reportDirectory}/test-results/${process.env.E2E_PHASE}`,
+  outputDir: `${reportDirectory}/test-results/${phase}`,
+  globalSetup: './scripts/require-managed-run.ts',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
   workers,
   timeout: 30_000,
   expect: { timeout: 10_000 },
-  reporter: process.env.E2E_PHASE === 'report'
+  reporter: phase === 'report'
     ? [
         ['html', { outputFolder: `${reportDirectory}/html`, open: 'never' }],
         ['junit', { outputFile: `${reportDirectory}/junit.xml` }],
         ['list'],
       ]
-    : [
+    : phase === 'discovery' ? [['list']] : [
         ['list'],
-        ['blob', { outputFile: `${reportDirectory}/blob/${process.env.E2E_PHASE}.zip` }],
+        ['blob', { outputFile: `${reportDirectory}/blob/${phase}.zip` }],
         // Allure appends phase results; merging blobs does not configure its projects.
         ['allure-playwright', { resultsDir: `${reportDirectory}/allure-results` }],
       ],

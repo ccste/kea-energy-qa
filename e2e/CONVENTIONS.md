@@ -26,6 +26,8 @@ Compare displayed values at their displayed precision. Preserve strict cross-pag
 
 The managed runner resets all 15 accounts to default alert preferences before preparing browser states. Setup holds preconditions only, never product acceptance assertions that belong in feature specs.
 
+Keep configuration loading and test discovery free of application requests and execution-only checks. Enforce the managed entry point when execution starts, including setup tests and fixture preparation. Editor discovery must not require a prepared account state or change the deployed environment.
+
 Run readers before settings writes. Rangi Paterson is the settings-write account. Every mutating settings test restores the complete default record in fixture setup and teardown; teardown runs after failures too. A cleanup error remains visible.
 
 Use one settings worker without a serial test group that skips later cases after a failure. Each case runs independently. Later selected phases still execute after ordinary test failures; setup failure stops the run.

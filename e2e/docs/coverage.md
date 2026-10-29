@@ -2,12 +2,12 @@
 
 The approved design has **173 leaves across 12 features**. One leaf represents one case; data-driven leaves produce one result per account or input. Leaf counts measure traceability, not the eventual Playwright test count.
 
-Login implements all 23 of its leaves as 24 tests. Usage has one representative Dashboard proof row for July Household; that row does not complete its 15-account design leaf. Implementation and execution review remain separate.
+Login implements all 23 of its leaves as 24 tests. Reset Password implements all nine leaves as 18 tests. Both features passed in the latest full-suite AWS run; their mappings record execution details separately from implementation counts. Usage has one representative Dashboard proof row for July Household; that row does not complete its 15-account design leaf.
 
 | Feature | Design leaves | Current implementation | Remaining work |
 |---|---:|---|---|
 | Login | 23 | All 23 leaves implemented as 24 tests | See [Login mapping](login-coverage.md) and current run results |
-| Reset Password | 9 | Not implemented | All leaves and account rows |
+| Reset Password | 9 | All 9 leaves implemented as 18 tests | See [Reset Password mapping](reset-password-coverage.md) and current run results |
 | Logout | 7 | Not implemented | All leaves |
 | Profile Management | 15 | Not implemented | All leaves and account rows |
 | Power Bill Shock Warning | 14 | Not implemented | Read cases and isolated settings-linked cases |
@@ -18,11 +18,13 @@ Login implements all 23 of its leaves as 24 tests. Usage has one representative 
 | Settings Change | 16 | Not implemented | All leaves and reviewed Mac screenshot baselines |
 | FAQs | 9 | Not implemented | All topics, questions, and search rows |
 | Contact | 5 | Not implemented | All leaves; external-app boundary documented |
-| **Total** | **173** | **23 complete leaf mappings and 1 partial leaf** | **150 leaves remain unfinished, including the partial Usage leaf** |
+| **Total** | **173** | **32 complete leaf mappings and 1 partial leaf** | **141 leaves remain unfinished, including the partial Usage leaf** |
 
 ## Implemented coverage
 
-The [Login mapping](login-coverage.md) lists every implemented Login leaf. The original foundation proofs remain in their feature specs:
+The [Login mapping](login-coverage.md) and [Reset Password mapping](reset-password-coverage.md) list every implemented leaf for those features. Reset Password has four signed-out cases, one Edit profile case, and 13 Settings-entry cases. The latter include ten independent account-email rows. The three Settings dismissal methods remain checkpoints within one Cancel test, matching the single design leaf.
+
+The original foundation proofs remain in their feature specs:
 
 | Design path | Account | Proof scope |
 |---|---|---|

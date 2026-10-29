@@ -4,9 +4,10 @@ import { test as setup } from '@playwright/test'
 import { KeaApi } from '../../api/client'
 import { ACCOUNTS } from '../../data/accounts'
 import { LoginPage } from '../../pages/LoginPage'
-import { authStatePath, runDirectory } from '../../utils/runtime'
+import { authStatePath, requireManagedRun, runDirectory } from '../../utils/runtime'
 
 setup('prepare alert defaults and signed-in account states', async ({ browser, request, baseURL }) => {
+  requireManagedRun()
   setup.setTimeout(180_000)
   const api = new KeaApi(request)
   const offered = await api.demoAccounts()

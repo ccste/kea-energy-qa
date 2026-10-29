@@ -1,5 +1,6 @@
 import type { Locator, Page } from '@playwright/test'
 import { Dialog } from './components/Dialog'
+import { PasswordResetDialog } from './components/PasswordResetDialog'
 
 export class LoginPage {
   readonly heading: Locator
@@ -13,6 +14,8 @@ export class LoginPage {
   readonly passwordVisibilityButton: Locator
   readonly demoAccountsToggle: Locator
   readonly createAccount: Locator
+  readonly forgotPassword: Locator
+  readonly resetPassword: PasswordResetDialog
 
   constructor(private readonly page: Page) {
     const main = page.getByRole('main')
@@ -31,6 +34,8 @@ export class LoginPage {
       name: /^(?:Demo accounts \(\d+\)|Hide demo accounts)$/,
     })
     this.createAccount = main.getByRole('button', { name: 'Create an account', exact: true })
+    this.forgotPassword = form.getByRole('button', { name: 'Forgot password?', exact: true })
+    this.resetPassword = new PasswordResetDialog(page, 'Reset your password')
   }
 
   async goto(): Promise<void> {
@@ -41,6 +46,11 @@ export class LoginPage {
   async fillCredentials(email: string, password: string): Promise<void> {
     await this.email.fill(email)
     await this.password.fill(password)
+  }
+
+  async openForgotPassword(): Promise<void> {
+    await this.forgotPassword.click()
+    await this.resetPassword.root.waitFor({ state: 'visible' })
   }
 
   async submitCredentials(email: string, password: string): Promise<void> {

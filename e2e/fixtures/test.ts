@@ -6,10 +6,12 @@ import type { Credentials } from '../api/types'
 import { accountByAlias, type AccountMetadata } from '../data/accounts'
 import { DashboardPage } from '../pages/DashboardPage'
 import { LoginPage } from '../pages/LoginPage'
+import { ProfilePage } from '../pages/ProfilePage'
+import { SettingsPage } from '../pages/SettingsPage'
 import { Sidebar } from '../pages/components/Sidebar'
 import { TopBar } from '../pages/components/TopBar'
 import { ToastStack } from '../pages/components/ToastStack'
-import { authStatePath, runDirectory } from '../utils/runtime'
+import { authStatePath, requireManagedRun, runDirectory } from '../utils/runtime'
 
 export type TestOptions = { account: AccountMetadata; signedIn: boolean; resetAlerts: boolean }
 type Fixtures = {
@@ -17,6 +19,8 @@ type Fixtures = {
   credentials: Credentials
   login: LoginPage
   dashboard: DashboardPage
+  profile: ProfilePage
+  settings: SettingsPage
   sidebar: Sidebar
   topBar: TopBar
   toasts: ToastStack
@@ -31,6 +35,7 @@ export const test = base.extend<TestOptions & Fixtures>({
   resetAlerts: [false, { option: true }],
 
   _ready: [async ({ baseURL }, use) => {
+    requireManagedRun()
     const ready = JSON.parse(await readFile(path.join(runDirectory(), 'ready.json'), 'utf8'))
     if (ready.baseURL !== baseURL) throw new Error('The saved account states belong to another target.')
     await use()
@@ -47,6 +52,8 @@ export const test = base.extend<TestOptions & Fixtures>({
   },
   login: async ({ page }, use) => { await use(new LoginPage(page)) },
   dashboard: async ({ page }, use) => { await use(new DashboardPage(page)) },
+  profile: async ({ page }, use) => { await use(new ProfilePage(page)) },
+  settings: async ({ page }, use) => { await use(new SettingsPage(page)) },
   sidebar: async ({ page }, use) => { await use(new Sidebar(page)) },
   topBar: async ({ page }, use) => { await use(new TopBar(page)) },
   toasts: async ({ page }, use) => { await use(new ToastStack(page)) },

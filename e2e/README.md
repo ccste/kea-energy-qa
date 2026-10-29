@@ -4,7 +4,7 @@ Functional browser tests for the deployed Kea Energy customer website, written i
 
 ## Current status
 
-Login now covers all 23 design leaves as 24 tests, including separate Google and Apple rows. The Dashboard usage summary for July Household remains a representative proof of saved authentication and API-backed values; full Usage coverage is pending. See [coverage](docs/coverage.md) for the 173-leaf design inventory and [Login coverage](docs/login-coverage.md) for its leaf-to-spec mapping.
+Login covers all 23 design leaves as 24 tests, including separate Google and Apple rows. Reset Password covers its nine leaves as 18 tests. The latest full-suite AWS run passed all 44 results: 24 Login, 18 Reset Password, one Dashboard usage proof, and one setup result. The Dashboard proof covers July Household only; full Usage coverage is pending. See [coverage](docs/coverage.md) for the 173-leaf design inventory, [Login coverage](docs/login-coverage.md), and [Reset Password coverage](docs/reset-password-coverage.md) for leaf-to-spec mappings and execution details.
 
 ## Install and run
 
@@ -29,6 +29,7 @@ The deployed site is shared with demonstrations. Use a small worker count and co
 | `npm test` | Implemented functional tests, excluding live `@ai` tests |
 | `npm test -- --grep @smoke --workers 2` | Implemented smoke tests |
 | `npm test -- tests/login --workers 2` | The complete Login feature |
+| `npm test -- tests/reset-password --workers 2` | All three Reset Password entry points |
 | `npm run test:ai` | Implemented live Sparky tests only |
 | `npm run test:all` | Implemented functional and live Sparky tests |
 | `npm run test:list` | List selected tests without signing in or resetting accounts |
@@ -38,9 +39,15 @@ The managed runner prepares the environment once, then executes selected phases 
 
 The read-only phase uses two workers by default. Settings and live Sparky each use one. Rangi Paterson can be read during the first phase; settings writes begin only after readers finish. Run individual features through `npm test` so setup and shared-environment safeguards still apply.
 
+`--workers 2` is optional when the `WORKERS` environment variable is unset: two is already the default. Runs are headless unless `--headed` is supplied. For example, `npm test -- tests/reset-password` runs the 18 Reset Password tests and the required setup result without visible browser windows.
+
 Project dependencies are intentionally not used: a failed prerequisite project would prevent its dependents from running, including failures that correctly expose known product defects. `scripts/run-suite.ts` waits for each phase, retains its exit code, and continues after product failures. It stops after setup failure. The runner also prevents overlapping local runs; do not run separate copies against the shared site concurrently.
 
 Use the npm entry points instead of calling `playwright test` directly. An unmatched selection fails before touching the site. Temporary account states are removed at the end of the run. If a forcibly terminated run leaves `.runtime/run.lock`, confirm no test process is still running before deleting that lock.
+
+`npm test` invokes `scripts/run-suite.ts`, which calls the installed Playwright CLI for each selected phase. The `--` separator forwards file selections and options such as `--headed` and `--workers` to that script. Tests and assertions still run in Playwright Test.
+
+The configuration can be loaded by editors without preparing accounts. Native read-only discovery such as `npx playwright test tests/reset-password --list` also works. The Microsoft Playwright extension can discover tests, but its Run and Debug buttons do not invoke the managed runner and are not supported execution entry points. Actual execution checks the managed run in a global hook and at the setup and fixture entries, before application requests. Use the terminal commands above to run tests; do not initialize a second Playwright project through the extension.
 
 ## Structure
 
@@ -63,7 +70,8 @@ Page objects hold locators and customer actions; assertions remain in feature sp
 - Credentials are fetched at runtime from `/api/auth/demo-accounts`. Never store passwords or tokens in source files.
 - Setup signs in through the browser once per account, dismisses the Welcome dialog, and saves browser state locally. Every product test gets a fresh browser context.
 - Login, Reset Password, and Logout use the sign-in form where their design requires it.
-- Authenticated API requests restore alert preferences. Settings tests use Rangi Paterson and restore defaults before and after each test, including failed tests.
+- Reset Password starts signed out and uses a browser sign-in for Profile and Settings journeys. Its reset controls only display prototype confirmations: they send no email and change no password. These cases run in the read-only phase, with unexpected API writes blocked after sign-in and all browser API methods observed during reset actions.
+- Authenticated API requests restore alert preferences. Settings-change tests use Rangi Paterson and restore defaults before and after each test, including failed tests.
 - The final Plan Request coverage records one real request per run. Other request scenarios intercept the write. Live Sparky conversations are recorded by the deployed service and may incur model costs.
 
 Saved states, credentials, tokens, reports, and temporary evidence are excluded from version control. Report artifacts can contain session details and demo-account data; review them before sharing.
