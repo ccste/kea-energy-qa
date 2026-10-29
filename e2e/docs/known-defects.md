@@ -1,10 +1,10 @@
 # Known and suspected product defects
 
-These permanent finding numbers connect expected behaviours with earlier code review and deployed-site observations. They are a triage reference, not results from this rebuild. Confirm each affected case during execution. A live model may reproduce a previous issue inconsistently.
+These permanent finding numbers connect expected behaviours with earlier code review and deployed-site observations. Runtime confirmations are recorded separately below; other entries remain a triage reference until their tests execute. A live model may reproduce a previous issue inconsistently.
 
 Affected tests retain the correct expectation and a `defect` annotation. The annotation does not skip a test or convert a failure into a pass. Keep each account's result, then group common causes in the review.
 
-## Findings to verify as coverage is added
+## Findings and expected behaviour
 
 | Finding | Feature / behaviour | Expected behaviour |
 |---|---|---|
@@ -42,6 +42,15 @@ Affected tests retain the correct expectation and a `defect` annotation. The ann
 | #48 | Sparky / answer quality | Manual review checks arithmetic, relevance, clarity, and tone |
 
 The phone requirement in #3 and cycle interpretation in #39 remain explicit acceptance expectations. The #11 balance expectation applies consistently to all affected cases, including debt from older invoices.
+
+## Confirmed by Profile tests on 29 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #2 | 1 failed name-consistency row | Generated Household displays `Zara Sutton` on Profile, matching the Profile API, while the avatar displays `Generated Demo Household`, matching the login response |
+| #3 | 4 failed invalid-phone rows | Too few digits, too many digits, a non-NZ prefix, and letters all close the dialog and show the submission confirmation without a field error |
+
+All five are ordinary failing tests with defect annotations and evidence. The final two-worker full-suite run produced 65 passed and five failed results, with no retries or skips. Profile itself produced 14 passed and five failed results. No additional product finding, unexpected profile write, or test-execution failure was observed in that run. See [Profile coverage](profile-coverage.md) for each case and the prototype boundary.
 
 ## Historical findings
 

@@ -1,7 +1,7 @@
 import type { CustomerProfile } from '../../api/types'
 import { ACCOUNTS, accountByAlias } from '../../data/accounts'
 import { expect, test } from '../../fixtures/test'
-import { blockApiWrites, observeApiRequests } from './reset-requests'
+import { blockApiWrites, observeApiRequests } from '../../utils/browser-requests'
 
 test.use({ signedIn: false })
 

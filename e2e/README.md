@@ -4,7 +4,9 @@ Functional browser tests for the deployed Kea Energy customer website, written i
 
 ## Current status
 
-Login covers all 23 design leaves as 24 tests, including separate Google and Apple rows. Reset Password covers its nine leaves as 18 tests. Logout covers all seven leaves as seven tests. The latest full-suite AWS run passed all 51 results: 24 Login, 18 Reset Password, seven Logout, one Dashboard usage proof, and one setup result. The Dashboard proof covers July Household only; full Usage coverage is pending. See [coverage](docs/coverage.md) for the 173-leaf design inventory, [Login coverage](docs/login-coverage.md), [Reset Password coverage](docs/reset-password-coverage.md), and [Logout coverage](docs/logout-coverage.md) for leaf-to-spec mappings and execution details.
+Login covers all 23 design leaves as 24 tests, Reset Password covers nine leaves as 18 tests, and Logout covers seven leaves as seven tests. Profile Management covers 15 leaves as 19 tests. The latest full-suite AWS run produced **70 results: 65 passed and 5 failed**, with no retries or skips. The five failures reproduce known Profile findings: Generated Household's inconsistent name (#2) and four accepted invalid phone inputs (#3). All previously implemented tests passed.
+
+The Dashboard proof covers July Household only; full Usage coverage is pending. See [coverage](docs/coverage.md) for the 173-leaf inventory and the [Login](docs/login-coverage.md), [Reset Password](docs/reset-password-coverage.md), [Logout](docs/logout-coverage.md), and [Profile](docs/profile-coverage.md) mappings for traceability and execution details. Known-defect tests preserve the correct expectation and fail normally; the current full run therefore exits with a nonzero status.
 
 ## Install and run
 
@@ -31,6 +33,7 @@ The deployed site is shared with demonstrations. Use a small worker count and co
 | `npm test -- tests/login --workers 2` | The complete Login feature |
 | `npm test -- tests/reset-password --workers 2` | All three Reset Password entry points |
 | `npm test -- tests/logout` | All seven Logout cases, with two workers by default |
+| `npm test -- tests/profile` | All 19 Profile tests; known findings remain visible as failures |
 | `npm run test:ai` | Implemented live Sparky tests only |
 | `npm run test:all` | Implemented functional and live Sparky tests |
 | `npm run test:list` | List selected tests without signing in or resetting accounts |
@@ -73,6 +76,7 @@ Page objects hold locators and customer actions; assertions remain in feature sp
 - Login, Reset Password, and Logout use the sign-in form where their design requires it.
 - Reset Password starts signed out and uses a browser sign-in for Profile and Settings journeys. Its reset controls only display prototype confirmations: they send no email and change no password. These cases run in the read-only phase, with unexpected API writes blocked after sign-in and all browser API methods observed during reset actions.
 - Logout signs July Household in through the form for every case, then opens Power Clash from the sidebar. It checks confirmation and cancellation from expanded navigation, collapsed navigation, and the profile menu, plus protected-page access after logout. Cancellation checks include a reload and visible account identity.
+- Profile reuses setup-created sign-in states and enters through the avatar menu. Request changes remains a browser prototype; tests block unexpected browser API writes and compare refreshed details with the original values. The backend profile-update endpoint is not used.
 - Authenticated API requests restore alert preferences. Settings-change tests use Rangi Paterson and restore defaults before and after each test, including failed tests.
 - The final Plan Request coverage records one real request per run. Other request scenarios intercept the write. Live Sparky conversations are recorded by the deployed service and may incur model costs.
 

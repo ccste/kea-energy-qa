@@ -1,6 +1,6 @@
 import { expect, test } from '../../fixtures/test'
 import { accountByAlias } from '../../data/accounts'
-import { blockApiWrites, observeApiRequests } from './reset-requests'
+import { blockApiWrites, observeApiRequests } from '../../utils/browser-requests'
 
 test.use({ signedIn: false, account: accountByAlias('spike') })
 

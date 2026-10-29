@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { expect, test } from '../../fixtures/test'
-import { blockApiWrites, observeApiRequests } from './reset-requests'
+import { blockApiWrites, observeApiRequests } from '../../utils/browser-requests'
 
 const confirmation = 'Password reset instructions prepared for your email'
 const invalidEmailMessage = 'Enter a valid email address including @ and a full stop.'

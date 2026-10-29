@@ -14,7 +14,7 @@ export async function blockApiWrites(page: Page): Promise<string[]> {
   return writes
 }
 
-// Start after page data has loaded to isolate requests caused by reset controls.
+// Start after page data has loaded to isolate requests caused by prototype controls.
 export function observeApiRequests(page: Page): string[] {
   const requests: string[] = []
   page.on('request', (request) => {
