@@ -73,6 +73,17 @@ Usage produced 124 passes, four ordinary failures, and four approved Monthly ski
 
 Billing produced 34 passes and seven ordinary failures, with no retries or skips. The seven failures represent three existing findings, not seven distinct bugs. History, visible charge arithmetic, empty state, action availability, three dialog closure methods, unpaid and paid PDF downloads, the payment prototype, and real-service recovery passed. See [Billing coverage](billing-coverage.md) for the full mapping and execution review.
 
+## Confirmed by Plan Request tests on 31 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #12 | 2 failed cases: option cards and terms | The three cards show `$1.45/day/day`, `$1.50/day/day`, and `$1.55/day/day`; Free Weekends terms show `Daily charge: $1.55/day per day.` |
+| #13 | 1 failed current-plan case | Generated's Profile and Billing show `Free Weekends (VECT, Standard user)`, but Plans selects Anytime Rate and shows no current-style tag |
+| #14 | 1 failed service-error case | An intercepted catalogue GET 500 displays the expected error but no Retry button; the recovery checkpoint cannot be reached |
+| #15 | 1 failed comparison-table case | Anytime Rate's `$0.325/kWh`, Free Weekends' `$0.365/kWh`, and its `$0.000/kWh` free period are replaced by em dashes |
+
+Plan Request produced 17 passes and five ordinary failures, with no retries or skips. All five failures reproduce four existing findings. The nine selection combinations, three scrolling styles, choice changes, default state, real submission, intercepted submission failure, and intercepted double click passed. Exactly one real request returned 201 with `pending_review`; the current plan remained unchanged. See [Plan Request coverage](plan-request-coverage.md) for the complete mapping, request boundary, and execution review.
+
 ## Historical findings
 
 | Finding | Current design status |

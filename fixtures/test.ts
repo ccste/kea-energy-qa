@@ -8,6 +8,7 @@ import { DashboardPage } from '../pages/DashboardPage'
 import { BillingPage } from '../pages/BillingPage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
+import { PlansPage } from '../pages/PlansPage'
 import { SettingsPage } from '../pages/SettingsPage'
 import { UsagePage } from '../pages/UsagePage'
 import { Sidebar } from '../pages/components/Sidebar'
@@ -25,6 +26,7 @@ type Fixtures = {
   dashboard: DashboardPage
   billing: BillingPage
   profile: ProfilePage
+  plans: PlansPage
   settings: SettingsPage
   usage: UsagePage
   sidebar: Sidebar
@@ -80,6 +82,7 @@ export const test = base.extend<TestOptions & Fixtures>({
   dashboard: async ({ page }, use) => { await use(new DashboardPage(page)) },
   billing: async ({ page, account }, use) => { await use(new BillingPage(page, account.customerId)) },
   profile: async ({ page }, use) => { await use(new ProfilePage(page)) },
+  plans: async ({ page }, use) => { await use(new PlansPage(page)) },
   settings: async ({ page }, use) => { await use(new SettingsPage(page)) },
   usage: async ({ page, account }, use) => { await use(new UsagePage(page, account.customerId)) },
   sidebar: async ({ page }, use) => { await use(new Sidebar(page)) },

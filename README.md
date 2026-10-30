@@ -6,9 +6,9 @@ Functional browser tests for the deployed Kea Energy customer website, written i
 
 ## Current status
 
-Login covers all 23 design leaves as 24 tests, Reset Password covers nine leaves as 18 tests, and Logout covers seven leaves as seven tests. Profile Management covers 15 leaves as 19 tests; Usage covers 20 leaves as 132 tests; Billing covers 14 leaves as 41 tests. The latest full-suite AWS run produced **242 results: 222 passed, 16 failed, and 4 skipped**, with no retries. Five failures reproduce Profile findings #2 and #3; four reproduce Usage findings #4, #6, #7, and #8; seven reproduce Billing findings #9, #10, and #11. The skips are the approved incomplete Monthly comparisons for Julia and Priya, two units each. Mereana's current 30-day data supports both Monthly comparisons.
+Login covers all 23 design leaves as 24 tests, Reset Password covers nine leaves as 18 tests, and Logout covers seven leaves as seven tests. Profile Management covers 15 leaves as 19 tests; Usage covers 20 leaves as 132 tests; Billing covers 14 leaves as 41 tests; Plan Request covers 12 leaves as 22 tests. The latest full-suite AWS run produced **264 results: 239 passed, 21 failed, and 4 skipped**, with no retries. Five failures reproduce Profile findings #2 and #3; four reproduce Usage findings #4, #6, #7, and #8; seven reproduce Billing findings #9, #10, and #11; five reproduce Plan Request findings #12–15. The skips are the approved incomplete Monthly comparisons for Julia and Priya, two units each. Mereana's current 30-day data supports both Monthly comparisons.
 
-See [coverage](docs/coverage.md) for the 173-leaf inventory and the [Login](docs/login-coverage.md), [Reset Password](docs/reset-password-coverage.md), [Logout](docs/logout-coverage.md), [Profile](docs/profile-coverage.md), [Usage](docs/usage-coverage.md), and [Billing](docs/billing-coverage.md) mappings for traceability and execution details. Known-defect tests preserve the correct expectation and fail normally; the current full run therefore exits with a nonzero status. The partial-Monthly behaviour test executes and fails for finding #8; the complete-data exception does not suppress it.
+See [coverage](docs/coverage.md) for the 173-leaf inventory and the [Login](docs/login-coverage.md), [Reset Password](docs/reset-password-coverage.md), [Logout](docs/logout-coverage.md), [Profile](docs/profile-coverage.md), [Usage](docs/usage-coverage.md), [Billing](docs/billing-coverage.md), and [Plan Request](docs/plan-request-coverage.md) mappings for traceability and execution details. Known-defect tests preserve the correct expectation and fail normally; the current full run therefore exits with a nonzero status. The partial-Monthly behaviour test executes and fails for finding #8; the complete-data exception does not suppress it.
 
 ## Install and run
 
@@ -38,6 +38,8 @@ The deployed site is shared with demonstrations. Use a small worker count and co
 | `npm test -- tests/profile` | All 19 Profile tests; known findings remain visible as failures |
 | `npm test -- tests/usage` | All 132 Usage rows, with runtime Monthly eligibility and visible defect failures |
 | `npm test -- tests/billing` | All 41 Billing tests, including actual PDF downloads and account-wide outstanding balances |
+| `npm test -- tests/plans` | All 22 Plan Request tests; includes one real Customer Care request |
+| `npm test -- tests/plans --grep-invert 'Request a new plan'` | The other 21 Plan Request tests, with no real plan submission |
 | `npm run test:ai` | Implemented live Sparky tests only |
 | `npm run test:all` | Implemented functional and live Sparky tests |
 | `npm run test:list` | List selected tests without signing in or resetting accounts |
@@ -45,7 +47,7 @@ The deployed site is shared with demonstrations. Use a small worker count and co
 
 The managed runner prepares the environment once, then executes selected phases in order: `setup` → `chromium` → `settings` → `ai`. Ordinary test failures are collected without preventing later phases from running. Setup failure stops the run because authentication or shared-data preconditions are not ready. Empty phases contribute no product-test results.
 
-The read-only phase uses two workers by default. Settings and live Sparky each use one. Rangi Paterson can be read during the first phase; settings writes begin only after readers finish. Run individual features through `npm test` so setup and shared-environment safeguards still apply.
+The general functional phase uses two workers by default. Settings and live Sparky each use one. Rangi Paterson can be read during the first phase; settings writes begin only after readers finish. Plan Request's one permitted submission runs in the general phase because it records a request without changing the account's active plan or alert preferences. Run individual features through `npm test` so setup and shared-environment safeguards still apply.
 
 `--workers 2` is optional when the `WORKERS` environment variable is unset: two is already the default. Runs are headless unless `--headed` is supplied. For example, `npm test -- tests/reset-password` runs the 18 Reset Password tests and the required setup result without visible browser windows.
 
@@ -84,7 +86,8 @@ Page objects hold locators and customer actions; assertions remain in feature sp
 - Usage reads protected usage-series and hourly-usage endpoints with the selected account's setup token through `usageApi`. It validates the saved origin and account, makes independent API requests for expectations, and performs no extra login. Usage journeys and oracles make no account changes.
 - Billing reuses setup-created sign-in states and compares the UI with independent invoice reads. Amount outstanding sums every invoice's remaining balance. Downloads are parsed from real PDF bytes and removed after inspection. Pay remains a prototype: its test blocks unexpected API writes and verifies unchanged invoice data after reload.
 - Authenticated API requests restore alert preferences. Settings-change tests use Rangi Paterson and restore defaults before and after each test, including failed tests.
-- The final Plan Request coverage records one real request per run. Other request scenarios intercept the write. Live Sparky conversations are recorded by the deployed service and may incur model costs.
+- Plan Request uses the signed-in browser's token for its one real submission. That case requires a 201 response, a pending-review receipt, and an unchanged current plan after reload. It disables automatic retries even in CI and forwards at most one correctly formed request; the failure and double-click cases intercept the write. Each fresh run including the positive case may store one request. Other plan journeys block unexpected API writes.
+- Live Sparky conversations are recorded by the deployed service and may incur model costs.
 
 Saved states, credentials, tokens, reports, and temporary evidence are excluded from version control. Report artifacts can contain session details and demo-account data; review them before sharing.
 
@@ -98,7 +101,7 @@ npm run report:allure
 npm run report:allure:open
 ```
 
-The pinned Allure command-line tool requires Java. Report outputs are `html/`, `allure-results/`, `allure-report/`, and `junit.xml` inside `reports/latest/`. Failure evidence uses screenshots and retained failure videos. A trace is recorded on the first retry; CI enables one retry for read-only tests, while local runs, settings, and live Sparky default to no retries. Setup retains no browser evidence because authentication carries credentials. Live Sparky tests also attach answers and stream evidence for [manual review](docs/manual-review.md).
+The pinned Allure command-line tool requires Java. Report outputs are `html/`, `allure-results/`, `allure-report/`, and `junit.xml` inside `reports/latest/`. Failure evidence uses screenshots and retained failure videos. A trace is recorded on the first retry; CI enables one retry for ordinary functional tests, while local runs, settings, and live Sparky default to no retries. The real Plan Request submission always disables retries. Setup retains no browser evidence because authentication carries credentials. Live Sparky tests also attach answers and stream evidence for [manual review](docs/manual-review.md).
 
 Defect annotations identify product findings without changing failures into passes. See [known defects](docs/known-defects.md). Each review records passes, individual failures classified as an existing defect, new finding, or test issue, and any automation limits.
 

@@ -2,7 +2,7 @@
 
 The approved design has **173 leaves across 12 features**. One leaf represents one case; data-driven leaves produce one result per account or input. Leaf counts measure traceability, not the eventual Playwright test count.
 
-Login implements all 23 of its leaves as 24 tests. Reset Password implements all nine leaves as 18 tests. Logout implements all seven leaves as seven tests. Profile Management implements all 15 leaves as 19 tests. Usage implements all 20 leaves as 132 tests. Billing implements all 14 leaves as 41 tests. The feature mappings record execution details separately from implementation counts, including genuine failures linked to known defects and the approved Monthly data exception.
+Login implements all 23 of its leaves as 24 tests. Reset Password implements all nine leaves as 18 tests. Logout implements all seven leaves as seven tests. Profile Management implements all 15 leaves as 19 tests. Usage implements all 20 leaves as 132 tests. Billing implements all 14 leaves as 41 tests. Plan Request implements all 12 leaves as 22 tests. The feature mappings record execution details separately from implementation counts, including genuine failures linked to known defects and the approved Monthly data exception.
 
 | Feature | Design leaves | Current implementation | Remaining work |
 |---|---:|---|---|
@@ -13,12 +13,12 @@ Login implements all 23 of its leaves as 24 tests. Reset Password implements all
 | Power Bill Shock Warning | 14 | Not implemented | Read cases and isolated settings-linked cases |
 | Usage | 20 | All 20 leaves implemented as 132 tests | See [Usage mapping](usage-coverage.md); four known findings and runtime Monthly applicability |
 | Billing | 14 | All 14 leaves implemented as 41 tests | See [Billing mapping](billing-coverage.md); findings #9, #10, and #11 remain visible |
-| Plan Request | 12 | Not implemented | All leaves, including nine selection combinations |
+| Plan Request | 12 | All 12 leaves implemented as 22 tests | See [Plan Request mapping](plan-request-coverage.md); findings #12–15 remain visible |
 | Sparky AI | 29 | Not implemented | Chat mocks, live checks, one manual review leaf |
 | Settings Change | 16 | Not implemented | All leaves and reviewed Mac screenshot baselines |
 | FAQs | 9 | Not implemented | All topics, questions, and search rows |
 | Contact | 5 | Not implemented | All leaves; external-app boundary documented |
-| **Total** | **173** | **88 complete leaf mappings** | **85 leaves remain unfinished** |
+| **Total** | **173** | **100 complete leaf mappings** | **73 leaves remain unfinished** |
 
 ## Implemented coverage
 
@@ -29,6 +29,8 @@ The [Profile mapping](profile-coverage.md) covers seven view tests and 12 reques
 The [Usage mapping](usage-coverage.md) covers 17 Dashboard tests, 90 range/unit rows, 15 strict cross-page cost comparisons, and ten page, date, data-scenario, and recovery tests. Both DST dates stay within one leaf. Only incomplete normal Monthly rows may skip; the dedicated partial-Monthly case still executes.
 
 The [Billing mapping](billing-coverage.md) covers 23 latest-invoice tests, ten history tests, four dialog/payment tests, and four PDF downloads. All 14 leaves are automated without skips. Account balances sum every invoice's remaining debt; Julia's fixed invoice expectation is independent of the API. Downloaded PDFs are parsed and removed after checking the actual text and headline amount.
+
+The [Plan Request mapping](plan-request-coverage.md) covers four option tests, 13 selection tests, two comparison/terms dialogs, and three submission tests. All nine combinations and three scrolling styles have separate results. Only the successful submission records a real request, with automatic retries disabled; failure and double-click responses are intercepted. The missing Retry control blocks the recovery checkpoint and remains an ordinary failure.
 
 The original foundation proofs are now included in their complete feature specs:
 
