@@ -8,6 +8,7 @@ import { DashboardPage } from '../pages/DashboardPage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SettingsPage } from '../pages/SettingsPage'
+import { UsagePage } from '../pages/UsagePage'
 import { Sidebar } from '../pages/components/Sidebar'
 import { TopBar } from '../pages/components/TopBar'
 import { ToastStack } from '../pages/components/ToastStack'
@@ -17,11 +18,13 @@ import { authStatePath, requireManagedRun, runDirectory } from '../utils/runtime
 export type TestOptions = { account: AccountMetadata; signedIn: boolean; resetAlerts: boolean }
 type Fixtures = {
   api: KeaApi
+  usageApi: KeaApi
   credentials: Credentials
   login: LoginPage
   dashboard: DashboardPage
   profile: ProfilePage
   settings: SettingsPage
+  usage: UsagePage
   sidebar: Sidebar
   topBar: TopBar
   toasts: ToastStack
@@ -47,6 +50,25 @@ export const test = base.extend<TestOptions & Fixtures>({
     await use(signedIn ? authStatePath(account.customerId) : undefined)
   },
   api: async ({ request }, use) => { await use(new KeaApi(request)) },
+  usageApi: async ({ request, account, signedIn, baseURL, _ready }, use) => {
+    if (!signedIn || !baseURL) throw new Error('Usage API expectations require a prepared signed-in account.')
+    // Reuse setup authentication only; expected readings still come from independent HTTP requests.
+    let session: { customerId?: string; accessToken?: string }
+    try {
+      const state = JSON.parse(await readFile(authStatePath(account.customerId), 'utf8')) as {
+        origins: { origin: string; localStorage: { name: string; value: string }[] }[]
+      }
+      const origin = state.origins.find((entry) => entry.origin === new URL(baseURL).origin)
+      const stored = origin?.localStorage.find((entry) => entry.name === 'kea-demo-session')
+      session = JSON.parse(stored?.value ?? '{}')
+    } catch {
+      throw new Error(`Prepared Usage authentication could not be read for ${account.customerId}.`)
+    }
+    if (session.customerId !== account.customerId || !session.accessToken?.trim()) {
+      throw new Error(`Prepared Usage authentication does not match ${account.customerId}.`)
+    }
+    await use(new KeaApi(request, session.accessToken))
+  },
   credentials: async ({ api, account }, use) => {
     const credentials = (await api.demoAccounts()).find((entry) => entry.customer_id === account.customerId)
     if (!credentials) throw new Error(`Required demo account is unavailable: ${account.customerId}`)
@@ -56,6 +78,7 @@ export const test = base.extend<TestOptions & Fixtures>({
   dashboard: async ({ page }, use) => { await use(new DashboardPage(page)) },
   profile: async ({ page }, use) => { await use(new ProfilePage(page)) },
   settings: async ({ page }, use) => { await use(new SettingsPage(page)) },
+  usage: async ({ page, account }, use) => { await use(new UsagePage(page, account.customerId)) },
   sidebar: async ({ page }, use) => { await use(new Sidebar(page)) },
   topBar: async ({ page }, use) => { await use(new TopBar(page)) },
   toasts: async ({ page }, use) => { await use(new ToastStack(page)) },

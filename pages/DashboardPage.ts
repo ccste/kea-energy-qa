@@ -10,12 +10,14 @@ export class DashboardPage {
   readonly latestDayCost: Locator
   readonly costSoFar: Locator
   readonly projectedThisCycle: Locator
+  readonly usageTiles: Locator
 
   constructor(private readonly page: Page) {
     this.heading = page.getByRole('heading', { name: 'Dashboard', exact: true })
     this.greeting = page.getByText(/^Welcome, /)
     this.energyHome = new EnergyHomeChips(page)
     this.usageSummary = this.energyHome.summaryPanel
+    this.usageTiles = this.usageSummary.getByRole('article')
     this.usageSoFar = this.summaryValue(/^Usage so far/)
     this.latestDayCost = this.summaryValue(/^Latest day/)
     this.costSoFar = this.summaryValue(/^Cost so far/)

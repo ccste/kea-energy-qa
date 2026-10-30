@@ -52,12 +52,23 @@ The phone requirement in #3 and cycle interpretation in #39 remain explicit acce
 
 All five are ordinary failing tests with defect annotations and evidence. The final two-worker full-suite run produced 65 passed and five failed results, with no retries or skips. Profile itself produced 14 passed and five failed results. No additional product finding, unexpected profile write, or test-execution failure was observed in that run. See [Profile coverage](profile-coverage.md) for each case and the prototype boundary.
 
+## Confirmed by Usage tests on 31 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #4 | 1 failed Daily axis case | July's 24 labels include `NZST`; adjacent labels overlap at the configured 1280 × 720 viewport |
+| #6 | 1 failed estimated-readings case | Priya's Weekly estimated note appears, but all 24 Daily estimated hours lack a per-hour label, tooltip indication, or marker explained by a legend |
+| #7 | 1 failed internal missing-day case | Selecting Priya's missing 2024-06-10 silently returns to 2024-06-30 with no missing-day explanation |
+| #8 | 1 failed partial-Monthly case | Julia's Monthly view replaces 24 available days with `Something went wrong` and `This period has missing readings. Choose a shorter range or another date.` |
+
+Usage produced 124 passes, four ordinary failures, and four approved Monthly skips. All 15 cross-page latest-day amounts agreed exactly, including cents. Clear-date behaviour passed. No new product finding was identified. See [Usage coverage](usage-coverage.md) for evidence, scope, and the data change that makes Mereana's Monthly rows applicable.
+
 ## Historical findings
 
 | Finding | Current design status |
 |---|---|
 | #1 | Not reproduced on 2026-10-29 in Chromium: normal email entry with surrounding spaces signed in successfully. The regression test retains a reference to the earlier suspicion |
-| #5 | Clear-date behaviour was reported fixed; verify the expected behaviour |
+| #5 | Verified fixed on 2026-10-31: Clear removes the chart and total, Weekly remains empty, and entering a date restores the selected chart |
 | #22 | Account-persisted theme was replaced by a theme lasting for one sign-in |
 | #23 | Theme synchronization was reported fixed; verify both controls |
 | #26 | Account theme persistence no longer applies; disabled reminders during a load failure is accepted |

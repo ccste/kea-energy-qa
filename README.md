@@ -1,12 +1,14 @@
 # Kea Energy web E2E tests
 
+Playwright + TypeScript end-to-end tests for Kea Energy, a University of Auckland Internship team project (2026). Work in progress.
+
 Functional browser tests for the deployed Kea Energy customer website, written in Playwright and TypeScript. This directory is a standalone project with its own dependencies; it requires no local application stack and imports no application code.
 
 ## Current status
 
-Login covers all 23 design leaves as 24 tests, Reset Password covers nine leaves as 18 tests, and Logout covers seven leaves as seven tests. Profile Management covers 15 leaves as 19 tests. The latest full-suite AWS run produced **70 results: 65 passed and 5 failed**, with no retries or skips. The five failures reproduce known Profile findings: Generated Household's inconsistent name (#2) and four accepted invalid phone inputs (#3). All previously implemented tests passed.
+Login covers all 23 design leaves as 24 tests, Reset Password covers nine leaves as 18 tests, and Logout covers seven leaves as seven tests. Profile Management covers 15 leaves as 19 tests; Usage covers 20 leaves as 132 tests. The latest full-suite AWS run produced **201 results: 188 passed, 9 failed, and 4 skipped**, with no retries. Five failures reproduce Profile findings #2 and #3; four reproduce Usage findings #4, #6, #7, and #8. The skips are the approved incomplete Monthly comparisons for Julia and Priya, two units each. Mereana's current 30-day data supports both Monthly comparisons.
 
-The Dashboard proof covers July Household only; full Usage coverage is pending. See [coverage](docs/coverage.md) for the 173-leaf inventory and the [Login](docs/login-coverage.md), [Reset Password](docs/reset-password-coverage.md), [Logout](docs/logout-coverage.md), and [Profile](docs/profile-coverage.md) mappings for traceability and execution details. Known-defect tests preserve the correct expectation and fail normally; the current full run therefore exits with a nonzero status.
+See [coverage](docs/coverage.md) for the 173-leaf inventory and the [Login](docs/login-coverage.md), [Reset Password](docs/reset-password-coverage.md), [Logout](docs/logout-coverage.md), [Profile](docs/profile-coverage.md), and [Usage](docs/usage-coverage.md) mappings for traceability and execution details. Known-defect tests preserve the correct expectation and fail normally; the current full run therefore exits with a nonzero status. The partial-Monthly behaviour test executes and fails for finding #8; the complete-data exception does not suppress it.
 
 ## Install and run
 
@@ -34,6 +36,7 @@ The deployed site is shared with demonstrations. Use a small worker count and co
 | `npm test -- tests/reset-password --workers 2` | All three Reset Password entry points |
 | `npm test -- tests/logout` | All seven Logout cases, with two workers by default |
 | `npm test -- tests/profile` | All 19 Profile tests; known findings remain visible as failures |
+| `npm test -- tests/usage` | All 132 Usage rows, with runtime Monthly eligibility and visible defect failures |
 | `npm run test:ai` | Implemented live Sparky tests only |
 | `npm run test:all` | Implemented functional and live Sparky tests |
 | `npm run test:list` | List selected tests without signing in or resetting accounts |
@@ -77,6 +80,7 @@ Page objects hold locators and customer actions; assertions remain in feature sp
 - Reset Password starts signed out and uses a browser sign-in for Profile and Settings journeys. Its reset controls only display prototype confirmations: they send no email and change no password. These cases run in the read-only phase, with unexpected API writes blocked after sign-in and all browser API methods observed during reset actions.
 - Logout signs July Household in through the form for every case, then opens Power Clash from the sidebar. It checks confirmation and cancellation from expanded navigation, collapsed navigation, and the profile menu, plus protected-page access after logout. Cancellation checks include a reload and visible account identity.
 - Profile reuses setup-created sign-in states and enters through the avatar menu. Request changes remains a browser prototype; tests block unexpected browser API writes and compare refreshed details with the original values. The backend profile-update endpoint is not used.
+- Usage reads protected usage-series and hourly-usage endpoints with the selected account's setup token through `usageApi`. It validates the saved origin and account, makes independent API requests for expectations, and performs no extra login. Usage journeys and oracles make no account changes.
 - Authenticated API requests restore alert preferences. Settings-change tests use Rangi Paterson and restore defaults before and after each test, including failed tests.
 - The final Plan Request coverage records one real request per run. Other request scenarios intercept the write. Live Sparky conversations are recorded by the deployed service and may incur model costs.
 

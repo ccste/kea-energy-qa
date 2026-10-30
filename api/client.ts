@@ -18,7 +18,7 @@ import type {
 
 /** Account data provides independent expected values for browser tests. */
 export class KeaApi {
-  constructor(private readonly request: APIRequestContext) {}
+  constructor(private readonly request: APIRequestContext, private readonly usageToken?: string) {}
 
   demoAccounts(): Promise<DemoAccount[]> {
     return this.get('/api/auth/demo-accounts')
@@ -54,12 +54,12 @@ export class KeaApi {
 
   usageSeries(customerId: string, range: { start: string; end: string }): Promise<UsageSeries> {
     const query = new URLSearchParams(range)
-    return this.get(`${this.accountPath(customerId)}/usage-series?${query}`)
+    return this.get(`${this.accountPath(customerId)}/usage-series?${query}`, this.usageToken)
   }
 
   hourlyUsage(customerId: string, day: string): Promise<HourlyUsage> {
     const query = new URLSearchParams({ day })
-    return this.get(`${this.accountPath(customerId)}/hourly-usage?${query}`)
+    return this.get(`${this.accountPath(customerId)}/hourly-usage?${query}`, this.usageToken)
   }
 
   annualDemand(customerId: string): Promise<AnnualDemand> {
