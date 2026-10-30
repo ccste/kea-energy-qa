@@ -63,6 +63,16 @@ All five are ordinary failing tests with defect annotations and evidence. The fi
 
 Usage produced 124 passes, four ordinary failures, and four approved Monthly skips. All 15 cross-page latest-day amounts agreed exactly, including cents. Clear-date behaviour passed. No new product finding was identified. See [Usage coverage](usage-coverage.md) for evidence, scope, and the data change that makes Mereana's Monthly rows applicable.
 
+## Confirmed by Billing tests on 31 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #9 | 1 failed Julia invoice case | The card and history omit the documented `DEMO-INV-20240831`, period `2024-08-08 – 2024-08-31`, Total `$50.54`; the page displays no billing records |
+| #10 | 1 failed partially paid download | `INV231931124` prints `AMOUNT DUE $386.84`, the full total, instead of the remaining `$231.37`; the invoice Total is correctly `$386.84` |
+| #11 | 5 failed account-balance checks | The card shows only the latest invoice's balance: Rangi `$151.04` instead of `$823.06`; Mereana `$158.31` instead of `$418.14`; Generated `$371.88` instead of `$934.75`. Rangi and Generated each fail both the card and dedicated several-unpaid-invoices cases |
+
+Billing produced 34 passes and seven ordinary failures, with no retries or skips. The seven failures represent three existing findings, not seven distinct bugs. History, visible charge arithmetic, empty state, action availability, three dialog closure methods, unpaid and paid PDF downloads, the payment prototype, and real-service recovery passed. See [Billing coverage](billing-coverage.md) for the full mapping and execution review.
+
 ## Historical findings
 
 | Finding | Current design status |

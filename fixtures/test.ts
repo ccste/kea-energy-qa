@@ -5,6 +5,7 @@ import { KeaApi } from '../api/client'
 import type { Credentials } from '../api/types'
 import { accountByAlias, type AccountMetadata } from '../data/accounts'
 import { DashboardPage } from '../pages/DashboardPage'
+import { BillingPage } from '../pages/BillingPage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SettingsPage } from '../pages/SettingsPage'
@@ -22,6 +23,7 @@ type Fixtures = {
   credentials: Credentials
   login: LoginPage
   dashboard: DashboardPage
+  billing: BillingPage
   profile: ProfilePage
   settings: SettingsPage
   usage: UsagePage
@@ -76,6 +78,7 @@ export const test = base.extend<TestOptions & Fixtures>({
   },
   login: async ({ page }, use) => { await use(new LoginPage(page)) },
   dashboard: async ({ page }, use) => { await use(new DashboardPage(page)) },
+  billing: async ({ page, account }, use) => { await use(new BillingPage(page, account.customerId)) },
   profile: async ({ page }, use) => { await use(new ProfilePage(page)) },
   settings: async ({ page }, use) => { await use(new SettingsPage(page)) },
   usage: async ({ page, account }, use) => { await use(new UsagePage(page, account.customerId)) },
