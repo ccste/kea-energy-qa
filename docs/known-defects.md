@@ -84,6 +84,14 @@ Billing produced 34 passes and seven ordinary failures, with no retries or skips
 
 Plan Request produced 17 passes and five ordinary failures, with no retries or skips. All five failures reproduce four existing findings. The nine selection combinations, three scrolling styles, choice changes, default state, real submission, intercepted submission failure, and intercepted double click passed. Exactly one real request returned 201 with `pending_review`; the current plan remained unchanged. See [Plan Request coverage](plan-request-coverage.md) for the complete mapping, request boundary, and execution review.
 
+## Confirmed by FAQ tests on 31 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #35 | 4 failed search rows | `warning`, `pdf`, `big four`, and `  human  ` show the correct matching questions, but all five topic counts remain `15 / 4 / 2 / 6 / 3` instead of following the search |
+
+FAQ produced 27 passes and four ordinary failures, with no retries or skips. The four failed rows represent one existing finding. Complete answers, notes, topic filtering, exclusive expansion, native and keyboard search clearing, and no-match navigation passed. No new product finding or unexpected API write was observed. See [FAQ coverage](faq-coverage.md) for exact expected counts, the complete mapping, and the execution review.
+
 ## Historical findings
 
 | Finding | Current design status |

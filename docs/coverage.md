@@ -2,7 +2,7 @@
 
 The approved design has **173 leaves across 12 features**. One leaf represents one case; data-driven leaves produce one result per account or input. Leaf counts measure traceability, not the eventual Playwright test count.
 
-Login implements all 23 of its leaves as 24 tests. Reset Password implements all nine leaves as 18 tests. Logout implements all seven leaves as seven tests. Profile Management implements all 15 leaves as 19 tests. Usage implements all 20 leaves as 132 tests. Billing implements all 14 leaves as 41 tests. Plan Request implements all 12 leaves as 22 tests. The feature mappings record execution details separately from implementation counts, including genuine failures linked to known defects and the approved Monthly data exception.
+Login implements all 23 of its leaves as 24 tests. Reset Password implements all nine leaves as 18 tests. Logout implements all seven leaves as seven tests. Profile Management implements all 15 leaves as 19 tests. Usage implements all 20 leaves as 132 tests. Billing implements all 14 leaves as 41 tests. Plan Request implements all 12 leaves as 22 tests. FAQs implement all nine leaves as 31 tests. The feature mappings record execution details separately from implementation counts, including genuine failures linked to known defects and the approved Monthly data exception.
 
 | Feature | Design leaves | Current implementation | Remaining work |
 |---|---:|---|---|
@@ -16,9 +16,9 @@ Login implements all 23 of its leaves as 24 tests. Reset Password implements all
 | Plan Request | 12 | All 12 leaves implemented as 22 tests | See [Plan Request mapping](plan-request-coverage.md); findings #12–15 remain visible |
 | Sparky AI | 29 | Not implemented | Chat mocks, live checks, one manual review leaf |
 | Settings Change | 16 | Not implemented | All leaves and reviewed Mac screenshot baselines |
-| FAQs | 9 | Not implemented | All topics, questions, and search rows |
+| FAQs | 9 | All 9 leaves implemented as 31 tests | See [FAQ mapping](faq-coverage.md); finding #35 remains visible |
 | Contact | 5 | Not implemented | All leaves; external-app boundary documented |
-| **Total** | **173** | **100 complete leaf mappings** | **73 leaves remain unfinished** |
+| **Total** | **173** | **109 complete leaf mappings** | **64 leaves remain unfinished** |
 
 ## Implemented coverage
 
@@ -31,6 +31,8 @@ The [Usage mapping](usage-coverage.md) covers 17 Dashboard tests, 90 range/unit 
 The [Billing mapping](billing-coverage.md) covers 23 latest-invoice tests, ten history tests, four dialog/payment tests, and four PDF downloads. All 14 leaves are automated without skips. Account balances sum every invoice's remaining debt; Julia's fixed invoice expectation is independent of the API. Downloaded PDFs are parsed and removed after checking the actual text and headline amount.
 
 The [Plan Request mapping](plan-request-coverage.md) covers four option tests, 13 selection tests, two comparison/terms dialogs, and three submission tests. All nine combinations and three scrolling styles have separate results. Only the successful submission records a real request, with automatic retries disabled; failure and double-click responses are intercepted. The missing Retry control blocks the recovery checkpoint and remains an ordinary failure.
+
+The [FAQ mapping](faq-coverage.md) covers six browse tests, 17 answer tests, and eight search tests. Every question has an independent full-answer comparison; both extra notes and their absence from the other answers are checked. Four search inputs retain the correct dynamic topic counts and finding #35. Native search cancellation and keyboard deletion are checkpoints within one leaf. No FAQ case requires a live chat response or a manual-only check.
 
 The original foundation proofs are now included in their complete feature specs:
 

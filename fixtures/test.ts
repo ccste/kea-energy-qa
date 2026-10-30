@@ -6,6 +6,7 @@ import type { Credentials } from '../api/types'
 import { accountByAlias, type AccountMetadata } from '../data/accounts'
 import { DashboardPage } from '../pages/DashboardPage'
 import { BillingPage } from '../pages/BillingPage'
+import { HelpPage } from '../pages/HelpPage'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { PlansPage } from '../pages/PlansPage'
@@ -25,6 +26,7 @@ type Fixtures = {
   login: LoginPage
   dashboard: DashboardPage
   billing: BillingPage
+  help: HelpPage
   profile: ProfilePage
   plans: PlansPage
   settings: SettingsPage
@@ -81,6 +83,7 @@ export const test = base.extend<TestOptions & Fixtures>({
   login: async ({ page }, use) => { await use(new LoginPage(page)) },
   dashboard: async ({ page }, use) => { await use(new DashboardPage(page)) },
   billing: async ({ page, account }, use) => { await use(new BillingPage(page, account.customerId)) },
+  help: async ({ page }, use) => { await use(new HelpPage(page)) },
   profile: async ({ page }, use) => { await use(new ProfilePage(page)) },
   plans: async ({ page }, use) => { await use(new PlansPage(page)) },
   settings: async ({ page }, use) => { await use(new SettingsPage(page)) },
