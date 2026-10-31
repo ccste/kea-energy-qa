@@ -6,7 +6,7 @@ Functional browser tests for the deployed Kea Energy customer website, written i
 
 ## Current status
 
-The 12 features now map all 173 design leaves: **172 automated leaves produce 412 product-test rows**, and Sparky has **one manual answer-quality review leaf**. Sparky adds 14 interface/file-validation rows and 39 live-answer rows. Jenkins and final acceptance remain pending.
+The 12 features now map all 173 design leaves: **172 automated leaves produce 412 product-test rows**, and Sparky has **one manual answer-quality review leaf**. Sparky adds 14 interface/file-validation rows and 39 live-answer rows. A parameterized Jenkins pipeline is included; see the [Jenkins guide](docs/jenkins.md) for setup and validation status. Final acceptance remains pending.
 
 **Evidence note — 31 October 2026:** The retained evidence identifies **57 test cases with product-expectation failures: 39 from earlier features and 18 from Sparky**. This is a case-by-case assessment across separate runs, including offline checks of the final assertion corrections, not a single Playwright execution result. Environment/service failures and identified test-assertion errors are excluded from this assessment. Live model answers can vary, so future runs may produce different failure counts; a later pass alone does not invalidate an earlier evidenced failure or establish a fix.
 
@@ -84,6 +84,7 @@ scripts/             Managed phases and report handling
 tests/               Feature specs and setup preconditions
 utils/               Small display-format and stream helpers
 playwright.config.ts Browser projects, evidence, and reporters
+Jenkinsfile          Parameterized execution and report publication
 ```
 
 Page objects hold locators and customer actions; assertions remain in feature specs. API calls provide expected values and restore shared preferences. Details are in [CONVENTIONS.md](CONVENTIONS.md).
@@ -131,8 +132,16 @@ The pinned Allure command-line tool requires Java. Report outputs are `html/`, `
 
 Defect annotations identify product findings without changing failures into passes. See [known defects](docs/known-defects.md). Each review records passes, individual failures classified as an existing defect, new finding, or test issue, and any automation limits.
 
+## Jenkins
+
+The [Jenkinsfile](Jenkinsfile) uses one `SUITE` choice: `smoke`, `regression`, `sparky-live`, or `full`. Smoke is a subset of regression; full runs regression followed by live Sparky tests. These choices reuse the existing npm commands and do not require additional tags.
+
+The pipeline checks out the selected repository, installs dependencies and Chromium, checks TypeScript, then runs the selected tests headlessly. It attempts to publish reports even after test failures. JUnit XML supplies Jenkins test counts and history; Playwright HTML and Allure provide readable steps and evidence. Allure uses the project's pinned command-line package, and HTML Publisher exposes both HTML reports. Failed tests and report-generation errors remain visible as unsuccessful builds.
+
+For this portfolio, Jenkins runs locally on the Mac and checks out the public portfolio repository into its own workspace. Builds are manually triggered with no overlapping executions or automatic schedules. This tests the existing AWS deployment; it does not build or deploy the application. See [configuration, commands, and report details](docs/jenkins.md).
+
 ## Scope and remaining work
 
 Only Chromium is configured. The design covers Login, Reset Password, Logout, Profile Management, Power Bill Shock Warning, Usage, Billing, Plan Request, Sparky, Settings Change, FAQs, and Contact. Features are implemented and reviewed individually; the coverage inventory states what exists today.
 
-Solar, Power Clash functionality, voice input, registration beyond its entry link, mobile, non-functional testing, and reading real uploaded bills are outside this suite. Bill-upload validation before reading remains in scope. Jenkins integration will be added in a separate step; this foundation has no Jenkins pipeline.
+Solar, Power Clash functionality, voice input, registration beyond its entry link, mobile, non-functional testing, and reading real uploaded bills are outside this suite. Bill-upload validation before reading remains in scope. Final acceptance, manual review, and portfolio presentation remain separate from Jenkins integration.

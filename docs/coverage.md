@@ -18,7 +18,7 @@ Login implements all 23 of its leaves as 24 tests. Reset Password implements all
 | Settings Change | 16 | All 16 leaves implemented as 17 tests | See [Settings mapping](settings-coverage.md); five failures cover four findings; initial Mac baselines accepted with submission approval |
 | FAQs | 9 | All 9 leaves implemented as 31 tests | See [FAQ mapping](faq-coverage.md); finding #35 remains visible |
 | Contact | 5 | All 5 leaves implemented as 5 tests | See [Contact mapping](contact-coverage.md); finding #31 remains visible |
-| **Total** | **173** | **172 automated leaf mappings; one manual leaf** | **Final manual review, Jenkins and acceptance remain** |
+| **Total** | **173** | **172 automated leaf mappings; one manual leaf** | **Final manual review and acceptance remain**; see [Jenkins integration](jenkins.md) |
 
 ## Implemented coverage
 
