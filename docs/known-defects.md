@@ -112,15 +112,30 @@ Contact produced three passes and two ordinary failures, with no retries or skip
 
 Bill Shock produced 36 passes and seven ordinary failures, with no retries or skips. These are five existing findings. All six Rangi settings cases passed in the later single-worker phase; each restores complete defaults even after failure. The cycle expectation remains an explicitly approved test-design assumption. See [Bill Shock coverage](bill-shock-coverage.md) for all 14 leaves, account rows, and execution evidence.
 
+## Confirmed by Settings tests on 31 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #29 | 2 failed cases: saved settings and channel changes | The default off Call row is dimmed but its level choices remain enabled. Switching Email and Text off likewise dims their rows without disabling their level choices |
+| #30 | 1 failed fixed-options case | After saving Email 40% and Call 90%, the Email 15% and Call 75% defaults disappear from their option sets and cannot be selected again |
+| #25 | 1 failed empty-amount case | Clearing the minimum amount changes it to zero; saving succeeds without required-amount validation and reload retains zero instead of the previous 20 |
+| #24 | 1 failed cross-section case | Email 30% saves successfully, but subsequently switching Bill reminders off writes the older Email 15% value; reload keeps reminders off and loses the Email change |
+
+Settings produced **12 passes and five ordinary failures**, with no retries or skips. The dedicated run included one passing setup result, giving **18 results: 13 passed and five failed**. These five failures represent four existing findings. All cases used Rangi in the single-worker Settings phase, with complete default restoration before and after each case. No additional product finding or unresolved cleanup failure was observed.
+
+All three theme cases, unavailable-settings handling, the master switch, multi-field alert saves, both real invalid-amount 422 cases, both simulated save failures, immediate reminder saves, and Privacy dialog behavior passed. Light and Dark comparisons also matched the generated Mac viewport baselines, and the user accepted those initial images with this step's submission approval on 31 October 2026. A matching screenshot does not make the functional failures acceptable. See [Settings coverage](settings-coverage.md) for all 16 leaves, 17 tests, screenshot scope and execution review.
+
+Two initial failures were test-code issues and were corrected before the final run: the native disabled fieldset needed an attribute check alongside its disabled controls, and the alert locator needed to tolerate leading DOM whitespace while retaining an exact message assertion. Both cases then passed. They are not additional product findings.
+
 ## Historical findings
 
 | Finding | Current design status |
 |---|---|
 | #1 | Not reproduced on 2026-10-29 in Chromium: normal email entry with surrounding spaces signed in successfully. The regression test retains a reference to the earlier suspicion |
 | #5 | Verified fixed on 2026-10-31: Clear removes the chart and total, Weekly remains empty, and entering a date restores the selected chart |
-| #22 | Account-persisted theme was replaced by a theme lasting for one sign-in |
-| #23 | Theme synchronization was reported fixed; verify both controls |
-| #26 | Account theme persistence no longer applies; disabled reminders during a load failure is accepted |
+| #22 | Superseded by the per-sign-in design; verified on 2026-10-31: Dark survives reload and navigation to Usage, while logout and a new sign-in restore Light without changing account preferences |
+| #23 | Verified fixed on 2026-10-31: the top-bar action and Settings Appearance selection stay synchronized across navigation and both theme changes, without saving account preferences |
+| #26 | The old account-theme persistence expectation no longer applies. The current failure-state requirement passed on 2026-10-31: failed preference GETs show the error in place of alert controls and leave Bill reminders disabled |
 
 Do not present a passing historical regression check as a currently confirmed defect. Record what the deployed build actually does.
 
