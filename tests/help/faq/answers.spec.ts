@@ -1,4 +1,4 @@
-import { expect, test } from './faq-test'
+import { expect, test } from '../help-test'
 import { FAQ_ITEMS } from '../../../data/faq-cases'
 import { expectAnswer, expectArrowAngle } from './faq-expectations'
 

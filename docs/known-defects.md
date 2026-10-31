@@ -92,6 +92,14 @@ Plan Request produced 17 passes and five ordinary failures, with no retries or s
 
 FAQ produced 27 passes and four ordinary failures, with no retries or skips. The four failed rows represent one existing finding. Complete answers, notes, topic filtering, exclusive expansion, native and keyboard search clearing, and no-match navigation passed. No new product finding or unexpected API write was observed. See [FAQ coverage](faq-coverage.md) for exact expected counts, the complete mapping, and the execution review.
 
+## Confirmed by Contact tests on 31 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #31 | 2 failed cases: Call now and Write email | The telephone and email links have the correct targets, but their cards do not display `0800 000 532` or `support@kea-energy.example` as visible text |
+
+Contact produced three passes and two ordinary failures, with no retries or skips. The failures represent one existing finding. Both real clipboard copies, their card text and toasts, and the Contact-to-assistant journey with its active sidebar state passed. No new product finding or unexpected API write was observed. The browser does not launch a phone or email application or send a chat question. See [Contact coverage](contact-coverage.md) for the full mapping and clipboard isolation.
+
 ## Historical findings
 
 | Finding | Current design status |

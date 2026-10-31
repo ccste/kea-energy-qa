@@ -58,7 +58,7 @@ The two no-match inputs require no question or group, the exact message `No help
 
 ## Shared-environment boundary and defect reference
 
-`faq-test.ts` installs an automatic API write guard before each browser journey. FAQ operations must not attempt account changes or submit chat questions. Navigation to the assistant may perform its ordinary read requests; no live response is requested by these tests. Setup still prepares authentication and restores the agreed alert defaults through the managed runner.
+`../help-test.ts`, shared with Contact, installs an automatic API write guard before each browser journey. FAQ operations must not attempt account changes or submit chat questions. Navigation to the assistant may perform its ordinary read requests; no live response is requested by these tests. Setup still prepares authentication and restores the agreed alert defaults through the managed runner.
 
 The four search-matching rows carry **#35**, the existing suspected finding that topic counts remain at the full FAQ totals while search results are filtered. The correct search-specific counts remain the assertions. The annotation does not pre-assign an execution outcome or hide a failure, and the four data rows retain independent results. No `test.fail()` or defect-based skip is used.
 

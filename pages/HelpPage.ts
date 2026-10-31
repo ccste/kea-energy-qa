@@ -18,6 +18,14 @@ export class HelpPage {
   readonly notes: Locator
   readonly emptyMessage: Locator
   readonly askSparky: Locator
+  readonly customerCareCard: Locator
+  readonly emailSupportCard: Locator
+  readonly sparkyCard: Locator
+  readonly phoneCopy: Locator
+  readonly emailCopy: Locator
+  readonly callNow: Locator
+  readonly writeEmail: Locator
+  readonly contactAskSparky: Locator
 
   constructor(private readonly page: Page) {
     this.heading = page.getByRole('heading', { name: 'Help & Support', exact: true })
@@ -34,6 +42,17 @@ export class HelpPage {
     this.notes = this.faq.locator('article > p.faq-note')
     this.emptyMessage = this.faq.locator('.faq-empty > p')
     this.askSparky = this.faq.getByRole('button', { name: 'Ask Sparky instead', exact: true })
+    const contactCard = (name: string): Locator => page.getByRole('article').filter({
+      has: page.getByRole('heading', { name, exact: true }),
+    })
+    this.customerCareCard = contactCard('Call Customer Care')
+    this.emailSupportCard = contactCard('Email support')
+    this.sparkyCard = contactCard('Ask Sparky AI')
+    this.phoneCopy = this.customerCareCard.getByRole('button', { name: 'Copy', exact: true })
+    this.emailCopy = this.emailSupportCard.getByRole('button', { name: 'Copy', exact: true })
+    this.callNow = this.customerCareCard.getByRole('link', { name: 'Call now', exact: true })
+    this.writeEmail = this.emailSupportCard.getByRole('link', { name: 'Write email', exact: true })
+    this.contactAskSparky = this.sparkyCard.getByRole('button', { name: 'Ask Sparky', exact: true })
   }
 
   topicButton(topic: TopicFilter): Locator {
