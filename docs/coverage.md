@@ -2,7 +2,7 @@
 
 The approved design has **173 leaves across 12 features**. One leaf represents one case; data-driven leaves produce one result per account or input. Leaf counts measure traceability, not the eventual Playwright test count.
 
-Login implements all 23 of its leaves as 24 tests. Reset Password implements all nine leaves as 18 tests. Logout implements all seven leaves as seven tests. Profile Management implements all 15 leaves as 19 tests. Usage implements all 20 leaves as 132 tests. Billing implements all 14 leaves as 41 tests. Plan Request implements all 12 leaves as 22 tests. FAQs implement all nine leaves as 31 tests. Contact implements all five leaves as five tests. Power Bill Shock Warning implements all 14 leaves as 43 tests. Settings Change implements all 16 leaves as 17 tests, with initial visual baselines accepted with the user's submission approval. The feature mappings record execution details separately from implementation counts, including genuine failures linked to known defects and the approved Monthly data exception.
+Login implements all 23 of its leaves as 24 tests. Reset Password implements all nine leaves as 18 tests. Logout implements all seven leaves as seven tests. Profile Management implements all 15 leaves as 19 tests. Usage implements all 20 leaves as 132 tests. Billing implements all 14 leaves as 41 tests. Plan Request implements all 12 leaves as 22 tests. FAQs implement all nine leaves as 31 tests. Contact implements all five leaves as five tests. Power Bill Shock Warning implements all 14 leaves as 43 tests. Settings Change implements all 16 leaves as 17 tests, with initial visual baselines accepted with the user's submission approval. Sparky implements 28 automated leaves as 53 tests, with one further leaf reserved for manual answer-quality review. The feature mappings record execution details separately from implementation counts, including genuine failures linked to known defects and the approved Monthly data exception.
 
 | Feature | Design leaves | Current implementation | Remaining work |
 |---|---:|---|---|
@@ -14,11 +14,11 @@ Login implements all 23 of its leaves as 24 tests. Reset Password implements all
 | Usage | 20 | All 20 leaves implemented as 132 tests | See [Usage mapping](usage-coverage.md); four known findings and runtime Monthly applicability |
 | Billing | 14 | All 14 leaves implemented as 41 tests | See [Billing mapping](billing-coverage.md); findings #9, #10, and #11 remain visible |
 | Plan Request | 12 | All 12 leaves implemented as 22 tests | See [Plan Request mapping](plan-request-coverage.md); findings #12–15 remain visible |
-| Sparky AI | 29 | Not implemented | Chat mocks, live checks, one manual review leaf |
+| Sparky AI | 29 | 28 automated leaves implemented as 53 tests; one manual leaf | See [Sparky mapping](sparky-coverage.md); 14 interface/file rows, 39 live rows and manual answer review |
 | Settings Change | 16 | All 16 leaves implemented as 17 tests | See [Settings mapping](settings-coverage.md); five failures cover four findings; initial Mac baselines accepted with submission approval |
 | FAQs | 9 | All 9 leaves implemented as 31 tests | See [FAQ mapping](faq-coverage.md); finding #35 remains visible |
 | Contact | 5 | All 5 leaves implemented as 5 tests | See [Contact mapping](contact-coverage.md); finding #31 remains visible |
-| **Total** | **173** | **144 implemented leaf mappings** | **29 Sparky leaves remain** |
+| **Total** | **173** | **172 automated leaf mappings; one manual leaf** | **Final manual review, Jenkins and acceptance remain** |
 
 ## Implemented coverage
 
@@ -39,6 +39,8 @@ The [Contact mapping](contact-coverage.md) covers real clipboard copies, exact p
 The [Bill Shock mapping](bill-shock-coverage.md) covers all 15 default account states, boundary and trend wording, calendar-cycle consistency across Billing and Usage, both failed Dashboard reads, account isolation, and both panel actions. Its six Rangi settings rows run after all readers with one worker, restore full defaults before and after each case, and keep the correct expected behaviour for findings #36–40. All 14 leaves are automated without skips. These settings-linked cases belong to Bill Shock.
 
 The [Settings mapping](settings-coverage.md) covers saved preferences, both theme controls, per-sign-in theme persistence, alert levels and validation, automatic reminder saves, cross-section persistence, server failures and Privacy information. The second invalid-amount input expands 16 leaves into 17 tests. All run with Rangi in the later single-worker phase and restore defaults before and after each case. Five rows retain findings #24, #25, #29 and #30. The initial Light and Dark viewport screenshots were generated and compared on the Jenkins Mac; the user accepted them with this step's submission approval on 31 October 2026. No Settings leaf is skipped or permanently manual-only.
+
+The [Sparky mapping](sparky-coverage.md) separates 14 interface/file-validation rows from 39 real-answer rows. Controlled SSE events check rendering, pending states, tool activity, editing, history and recovery without paid model calls. Live questions run last with one worker and no retries; they compare the same generation with its visible response, account records and other pages. The exploratory answer-quality leaf remains manual, without a passing or skipped placeholder.
 
 The original foundation proofs are now included in their complete feature specs:
 
@@ -71,4 +73,4 @@ The protected-route case is included in the Login totals. The summary proof was 
 
 Contact tests check clipboard contents, visible contact details, and `tel:`/`mailto:` targets. A browser test cannot verify a separate phone or mail application.
 
-Real bill reading is excluded because the deployed reader is unavailable. Type, empty-file, and size validation before reading remains planned automation. Solar, voice input, mobile, registration beyond its entry link, and non-functional testing are outside the design scope.
+Real bill reading is excluded because the deployed reader is unavailable. Type, empty-file, and size validation before reading is automated against the deployed endpoint. Solar, voice input, mobile, registration beyond its entry link, and non-functional testing are outside the design scope.

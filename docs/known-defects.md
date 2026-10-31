@@ -40,6 +40,14 @@ Affected tests retain the correct expectation and a `defect` annotation. The ann
 | #46 | Sparky / Usage Collapse | Reduced usage is recognized and verified support recommended |
 | #47 | Sparky / comparison chart | Figures agree with Billing; notes contain no internal instructions |
 | #48 | Sparky / answer quality | Manual review checks arithmetic, relevance, clarity, and tone |
+| NEW-Sparky-01 | Sparky / July scenario | The explanation identifies July Household's documented high standing load |
+| NEW-Sparky-02 | Sparky / last bill | The newest issued invoice amount, period and due date agree with Billing |
+| NEW-Sparky-03 | Sparky / meter-reading dispute | A dispute invokes human handoff and marks escalation, without claiming contact was arranged |
+| NEW-Sparky-04 | Sparky / another account | Requests for another customer's information explain the own-account access boundary |
+| NEW-Sparky-05 | Sparky / estimated reads | Priya's explanation identifies estimated readings and qualifies its conclusions |
+| NEW-Sparky-06 | Sparky / increase timing | Josh's explanation identifies the increase partway through the period |
+
+The `NEW-Sparky-*` references are provisional observations, not additions to or renumberings of the original suspected-defect list. A failed access-boundary explanation does not establish that another customer's data was disclosed.
 
 The phone requirement in #3 and cycle interpretation in #39 remain explicit acceptance expectations. The #11 balance expectation applies consistently to all affected cases, including debt from older invoices.
 
@@ -144,3 +152,11 @@ Do not present a passing historical regression check as a currently confirmed de
 Finding #49 explains excluded real-bill reading. Earlier observations without design leaves do not silently become requirements; report new observations separately for review.
 
 For each failure capture the account, expectation, actual result, relevant response or stream, and attachment. Classify it as an existing finding, a new product finding, a test issue, or an environment/setup issue. Investigate setup and cleanup failures visibly because they affect the validity of later results.
+
+## Observed during Sparky verification on 31 October 2026
+
+Sparky maps 28 automated leaves to 53 rows and keeps one answer-quality leaf manual. The complete run contained 14 passing interface/file checks and 39 live checks; live failures included product behaviour, service failures and test-assertion errors. A targeted run and offline evidence checks separate those categories. See [Sparky execution review](sparky-coverage.md#execution-review) for exact run totals, every affected case, and the corrected assertion limitations.
+
+Existing findings #41, #42, #43, #45, #46 and #47 have supporting captured responses. #44 was observed in an earlier plan generation and is retained despite later passes. #48 covers observed quality issues and the still-pending wider human review. Provisional observations NEW-Sparky-01 through NEW-Sparky-06 cover the July driver, last-bill records, dispute escalation, other-account scope, estimated-read qualification, and increase timing. These references must not be interpreted as equally reproducible in every model generation.
+
+Two requests for another customer's information failed the explanatory boundary check; no actual disclosure of the other customer's bill was observed. The plan-switch conversation did not send a confirmation, and no unconfirmed plan change was established. Explicit unavailable-service SSE responses were classified separately from conversation-quality defects. No product expectation was changed to make a known failing answer pass.

@@ -6,9 +6,15 @@ Functional browser tests for the deployed Kea Energy customer website, written i
 
 ## Current status
 
-Login covers all 23 design leaves as 24 tests, Reset Password covers nine leaves as 18 tests, and Logout covers seven leaves as seven tests. Profile Management covers 15 leaves as 19 tests; Usage covers 20 leaves as 132 tests; Billing covers 14 leaves as 41 tests; Plan Request covers 12 leaves as 22 tests; FAQs cover nine leaves as 31 tests; Contact covers five leaves as five tests; Bill Shock covers 14 leaves as 43 tests; Settings Change covers 16 leaves as 17 tests. The latest full-suite AWS run produced **360 results: 317 passed, 39 failed, and 4 skipped**, with no retries. Five failures reproduce Profile findings #2 and #3; four reproduce Usage findings #4, #6, #7, and #8; seven reproduce Billing findings #9, #10, and #11; five reproduce Plan Request findings #12–15; four reproduce FAQ search-count finding #35; two reproduce Contact visibility finding #31; seven reproduce Bill Shock findings #36–40; five reproduce Settings findings #24, #25, #29 and #30. The skips are the approved incomplete Monthly comparisons for Julia and Priya, two units each. Mereana's current 30-day data supports both Monthly comparisons. The initial Settings Light and Dark baselines were accepted with this step's submission approval on 31 October 2026.
+The 12 features now map all 173 design leaves: **172 automated leaves produce 412 product-test rows**, and Sparky has **one manual answer-quality review leaf**. Sparky adds 14 interface/file-validation rows and 39 live-answer rows. Jenkins and final acceptance remain pending.
 
-See [coverage](docs/coverage.md) for the 173-leaf inventory and the [Login](docs/login-coverage.md), [Reset Password](docs/reset-password-coverage.md), [Logout](docs/logout-coverage.md), [Profile](docs/profile-coverage.md), [Usage](docs/usage-coverage.md), [Billing](docs/billing-coverage.md), [Plan Request](docs/plan-request-coverage.md), [FAQ](docs/faq-coverage.md), [Contact](docs/contact-coverage.md), [Bill Shock](docs/bill-shock-coverage.md), and [Settings](docs/settings-coverage.md) mappings for traceability and execution details. Known-defect tests preserve the correct expectation and fail normally; the current full run therefore exits with a nonzero status. The partial-Monthly behaviour test executes and fails for finding #8; the complete-data exception does not suppress it.
+**Evidence note — 31 October 2026:** The retained evidence identifies **57 test cases with product-expectation failures: 39 from earlier features and 18 from Sparky**. This is a case-by-case assessment across separate runs, including offline checks of the final assertion corrections, not a single Playwright execution result. Environment/service failures and identified test-assertion errors are excluded from this assessment. Live model answers can vary, so future runs may produce different failure counts; a later pass alone does not invalidate an earlier evidenced failure or establish a fix.
+
+Sparky has 53 automated cases: the latest evidence satisfies the checked expectations for 35 cases and does not satisfy them for 18. The final source and usage-timing assertion corrections were verified offline against saved answers; the complete live selection has not been rerun after those last changes. See the [case assessment](docs/sparky-coverage.md#current-case-assessment) and raw execution history below.
+
+The complete AWS regression on 31 October 2026 produced **413 results including setup: 340 passed, 69 failed, and 4 approved Monthly skips**, with no retries. The failures include 39 previously documented product failures, 11 Sparky product-assertion failures, 11 service/environment failures, and eight Sparky test-assertion errors. The eight test errors were corrected; two additional driver checks were tightened after they accepted incomplete explanations. A separate targeted run produced **16 passes and six failures from 22 results**, with no retries or skips; all seven earlier-feature service/wait cases passed. Two final assertion edge cases were corrected against saved answers without another model call. These raw run totals must not be read as 69 distinct bugs or as the final corrected test state. See the [Sparky execution review](docs/sparky-coverage.md#execution-review) for the targeted outcome and failure classification.
+
+See [coverage](docs/coverage.md) for all feature mappings and the 173-leaf inventory. Known-defect tests keep the correct expectation and fail normally. The four skips remain Julia's and Priya's normal Monthly comparisons, two units each; the dedicated incomplete-Monthly behaviour test still executes and fails for #8. Settings Light and Dark baselines were accepted with that step's submission approval on 31 October 2026.
 
 ## Install and run
 
@@ -44,6 +50,9 @@ The deployed site is shared with demonstrations. Use a small worker count and co
 | `npm test -- tests/help/contact` | All five Contact tests; real clipboard copies and link targets; two visible-detail cases retain finding #31 |
 | `npm test -- tests/bill-shock` | All 43 Bill Shock tests: 37 reader cases followed by six isolated Rangi settings cases |
 | `npm test -- tests/settings` | All 17 Settings tests with one worker; includes Light/Dark viewport comparisons and five known-defect failures |
+| `npm test -- tests/sparky` | 14 chat-interface and invalid-file tests; no real model answers |
+| `npm run test:ai -- tests/sparky` | 39 live Sparky tests with one worker and no retries; answers retained for review |
+| `npm run test:all -- tests/sparky` | Both Sparky layers, with one shared setup |
 | `npm run test:ai` | Implemented live Sparky tests only |
 | `npm run test:all` | Implemented functional and live Sparky tests |
 | `npm run test:list` | List selected tests without signing in or resetting accounts |
@@ -89,6 +98,7 @@ Page objects hold locators and customer actions; assertions remain in feature sp
 - Profile reuses setup-created sign-in states and enters through the avatar menu. Request changes remains a browser prototype; tests block unexpected browser API writes and compare refreshed details with the original values. The backend profile-update endpoint is not used.
 - Usage reads protected usage-series and hourly-usage endpoints with the selected account's setup token through `usageApi`. It validates the saved origin and account, makes independent API requests for expectations, and performs no extra login. Usage journeys and oracles make no account changes.
 - Billing reuses setup-created sign-in states and compares the UI with independent invoice reads. Amount outstanding sums every invoice's remaining balance. Downloads are parsed from real PDF bytes and removed after inspection. Pay remains a prototype: its test blocks unexpected API writes and verifies unchanged invoice data after reload.
+- Sparky interface tests replace only the selected browser requests with prepared SSE events. Live cases ask through the real page, capture that same response and compare it with independent account records. Their browser guard allows only the selected account's chat request; invalid-file validation and the mock-history sign-in journey have explicit exceptions. Live conversations are recorded server-side; model calls may incur costs. The plan-switch question stops before confirmation.
 - Authenticated API requests restore alert preferences. Settings-change tests use Rangi Paterson and restore defaults before and after each test, including failed tests.
 - Plan Request uses the signed-in browser's token for its one real submission. That case requires a 201 response, a pending-review receipt, and an unchanged current plan after reload. It disables automatic retries even in CI and forwards at most one correctly formed request; the failure and double-click cases intercept the write. Each fresh run including the positive case may store one request. Other plan journeys block unexpected API writes.
 - FAQ uses Mere Kahu's saved sign-in state and enters Help & Support through the sidebar. Its 15 static answers and two notes have independent fixed expectations; no FAQ API client is needed. Topic filtering, searching, and expansion run in the browser. API writes are blocked, including chat submissions; the two no-match journeys only navigate to the assistant.
@@ -108,6 +118,14 @@ npm run report
 npm run report:allure
 npm run report:allure:open
 ```
+
+The live-answer evidence helpers have offline regression checks:
+
+```sh
+node --import tsx --test utils/chat-stream.test.ts utils/chat-text.test.ts utils/chat-dates.test.ts utils/chat-usage-timing.test.ts
+```
+
+They cover stream completion and reset, display-format comparison without dropping meaningful content, and dates with an unambiguous year stated earlier in the same sentence. They make no AWS requests.
 
 The pinned Allure command-line tool requires Java. Report outputs are `html/`, `allure-results/`, `allure-report/`, and `junit.xml` inside `reports/latest/`. Failure evidence uses screenshots and retained failure videos. A trace is recorded on the first retry; CI enables one retry for ordinary functional tests, while local runs, settings, and live Sparky default to no retries. The real Plan Request submission always disables retries. Setup retains no browser evidence because authentication carries credentials. Live Sparky tests also attach answers and stream evidence for [manual review](docs/manual-review.md).
 
