@@ -1,10 +1,12 @@
 import type { Locator, Page } from '@playwright/test'
 import { EnergyHomeChips } from './components/EnergyHomeChips'
+import { BillShockPanel } from './components/BillShockPanel'
 
 export class DashboardPage {
   readonly heading: Locator
   readonly greeting: Locator
   readonly energyHome: EnergyHomeChips
+  readonly billShock: BillShockPanel
   readonly usageSummary: Locator
   readonly usageSoFar: Locator
   readonly latestDayCost: Locator
@@ -16,6 +18,7 @@ export class DashboardPage {
     this.heading = page.getByRole('heading', { name: 'Dashboard', exact: true })
     this.greeting = page.getByText(/^Welcome, /)
     this.energyHome = new EnergyHomeChips(page)
+    this.billShock = new BillShockPanel(page)
     this.usageSummary = this.energyHome.summaryPanel
     this.usageTiles = this.usageSummary.getByRole('article')
     this.usageSoFar = this.summaryValue(/^Usage so far/)

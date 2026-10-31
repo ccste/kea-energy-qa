@@ -100,6 +100,18 @@ FAQ produced 27 passes and four ordinary failures, with no retries or skips. The
 
 Contact produced three passes and two ordinary failures, with no retries or skips. The failures represent one existing finding. Both real clipboard copies, their card text and toasts, and the Contact-to-assistant journey with its active sidebar state passed. No new product finding or unexpected API write was observed. The browser does not launch a phone or email application or send a chat question. See [Contact coverage](contact-coverage.md) for the full mapping and clipboard isolation.
 
+## Confirmed by Bill Shock tests on 31 October 2026
+
+| Finding | Results | Observed behaviour |
+|---|---:|---|
+| #36 | 2 failed comparison-wording rows | Cold Snap's materially higher projection and Usage Collapse's materially lower projection are both described as `in line with` normal |
+| #37 | 1 failed zero-day row | July's closed-cycle copy refers to figures below, but only buttons and the basis note follow |
+| #38 | 1 failed account-isolation row | Tama's `?household=H-JUL` address shows July's 97.50 NZD assessment and summary under Tama's own greeting |
+| #39 | 2 failed calendar-cycle rows | Ana and Mereana show 31-day June cycles, rather than 30 days under the approved Billing-history assumption; remaining days are one too many |
+| #40 | 1 failed no-warning navigation row | Low User's green panel omits View Usage |
+
+Bill Shock produced 36 passes and seven ordinary failures, with no retries or skips. These are five existing findings. All six Rangi settings cases passed in the later single-worker phase; each restores complete defaults even after failure. The cycle expectation remains an explicitly approved test-design assumption. See [Bill Shock coverage](bill-shock-coverage.md) for all 14 leaves, account rows, and execution evidence.
+
 ## Historical findings
 
 | Finding | Current design status |
