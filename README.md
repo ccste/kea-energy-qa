@@ -1,20 +1,34 @@
 # Kea Energy web E2E tests
 
-Playwright + TypeScript end-to-end tests for Kea Energy, a University of Auckland Internship team project (2026). Work in progress.
+Playwright + TypeScript end-to-end tests for Kea Energy, a University of Auckland Internship team project (2026).
 
-Functional browser tests for the deployed Kea Energy customer website, written in Playwright and TypeScript. This directory is a standalone project with its own dependencies; it requires no local application stack and imports no application code.
+This portfolio demonstrates browser-based functional testing, test-design traceability, defect analysis, automated reporting, and parameterized Jenkins execution against the deployed Kea Energy customer website. It is a standalone test project with its own dependencies; it requires no local application stack and imports no application code.
 
-## Current status
+## Portfolio baseline — 31 October 2026
 
-The 12 features now map all 173 design leaves: **172 automated leaves produce 412 product-test rows**, and Sparky has **one manual answer-quality review leaf**. Sparky adds 14 interface/file-validation rows and 39 live-answer rows. A parameterized Jenkins pipeline is included; see the [Jenkins guide](docs/jenkins.md) for setup and validation status. Final acceptance remains pending.
+The published automation represents the **31 October 2026 baseline**. Across 12 features, all **173 design leaves** are mapped: **172 automated leaves produce 412 product-test rows**, while one Sparky answer-quality review leaf is reserved for human judgement. Sparky contributes 53 automated rows: 14 interface/file-validation rows and 39 live-answer rows. See [coverage](docs/coverage.md) for the feature mappings and design inventory.
 
-**Evidence note — 31 October 2026:** The retained evidence identifies **57 test cases with product-expectation failures: 39 from earlier features and 18 from Sparky**. This is a case-by-case assessment across separate runs, including offline checks of the final assertion corrections, not a single Playwright execution result. Environment/service failures and identified test-assertion errors are excluded from this assessment. Live model answers can vary, so future runs may produce different failure counts; a later pass alone does not invalidate an earlier evidenced failure or establish a fix.
+A parameterized Jenkins pipeline supports `smoke`, `regression`, `sparky-live`, and `full` selections and publishes JUnit, Playwright HTML, and Allure reports. See the [Jenkins guide](docs/jenkins.md) for configuration and validation evidence. The implemented automation and Jenkins integration do not establish that all product tests pass; final product acceptance remains pending.
 
-Sparky has 53 automated cases: the latest evidence satisfies the checked expectations for 35 cases and does not satisfy them for 18. The final source and usage-timing assertion corrections were verified offline against saved answers; the complete live selection has not been rerun after those last changes. See the [case assessment](docs/sparky-coverage.md#current-case-assessment) and raw execution history below.
+### Retained test evidence
 
-The complete AWS regression on 31 October 2026 produced **413 results including setup: 340 passed, 69 failed, and 4 approved Monthly skips**, with no retries. The failures include 39 previously documented product failures, 11 Sparky product-assertion failures, 11 service/environment failures, and eight Sparky test-assertion errors. The eight test errors were corrected; two additional driver checks were tightened after they accepted incomplete explanations. A separate targeted run produced **16 passes and six failures from 22 results**, with no retries or skips; all seven earlier-feature service/wait cases passed. Two final assertion edge cases were corrected against saved answers without another model call. These raw run totals must not be read as 69 distinct bugs or as the final corrected test state. See the [Sparky execution review](docs/sparky-coverage.md#execution-review) for the targeted outcome and failure classification.
+| Evidence | Recorded outcome | Interpretation |
+|---|---|---|
+| Complete AWS regression, 31 October 2026 | **413 results including setup: 340 passed, 69 failed, 4 approved Monthly skips**; no retries | One actual execution, including product, service/environment, and test-assertion failures |
+| Separate targeted verification | **22 results: 16 passed, 6 failed**; no retries or skips | Follow-up execution; it does not replace the complete-run totals |
+| Case-by-case assessment of retained evidence | **57 cases with product-expectation failures: 39 from earlier features and 18 from Sparky** | Assessment across separate runs and offline assertion checks, not a single execution or a count of distinct bugs |
 
-See [coverage](docs/coverage.md) for all feature mappings and the 173-leaf inventory. Known-defect tests keep the correct expectation and fail normally. The four skips remain Julia's and Priya's normal Monthly comparisons, two units each; the dedicated incomplete-Monthly behaviour test still executes and fails for #8. Settings Light and Dark baselines were accepted with that step's submission approval on 31 October 2026.
+The 69 failures in the complete run comprise 39 previously documented product failures, 11 Sparky product-assertion failures, 11 service/environment failures, and eight Sparky test-assertion errors. The eight test errors were corrected, and two additional driver checks were tightened after they accepted incomplete explanations. All seven earlier-feature service/wait cases passed targeted verification. See the [execution review](docs/sparky-coverage.md#execution-review) for the classification and follow-up results.
+
+For Sparky's 53 automated cases, the retained evidence satisfies the checked expectations for 35 cases and does not satisfy them for 18. The final source and usage-timing assertion corrections were checked offline against saved answers without another model call; the complete live selection was not rerun after those changes. The 57-case assessment excludes service/environment failures and identified test-assertion errors. See the [case assessment](docs/sparky-coverage.md#current-case-assessment) for its evidence and limitations.
+
+These are historical findings, not a statement of the deployed site's current condition. Live answers can vary between runs; a later pass alone does not invalidate an earlier evidenced failure or establish a fix. Known-defect tests retain the expected behaviour and fail normally. In the complete run, the four Monthly skips were Julia's and Priya's normal comparisons, two units each; the dedicated incomplete-Monthly behaviour test still ran and failed for #8. Settings Light and Dark baselines were accepted with that step's submission approval on 31 October 2026.
+
+### Sparky human answer-quality review
+
+Automated functional checks and answer-evidence capture are implemented. A separate [manual review checklist](docs/manual-review.md) covers answer relevance, factual and numerical consistency, clarity, tone, unsupported causal claims, and handover wording. Automated checks support this review but do not establish the full quality of an explanation.
+
+**Human answer-quality review remains pending for this baseline.** It can be carried out by designated reviewers with relevant technical or business knowledge, such as QA, developers, product owners, or domain experts; it is not restricted to a Test Analyst. Completion requires an actual human assessment with the reviewer, date, answer samples, and conclusions recorded. The manual leaf represents this review activity, not a single answer or an additional automated test.
 
 ## Install and run
 
@@ -140,8 +154,8 @@ The pipeline checks out the selected repository, installs dependencies and Chrom
 
 For this portfolio, Jenkins runs locally on the Mac and checks out the public portfolio repository into its own workspace. Builds are manually triggered with no overlapping executions or automatic schedules. This tests the existing AWS deployment; it does not build or deploy the application. See [configuration, commands, and report details](docs/jenkins.md).
 
-## Scope and remaining work
+## Scope and limitations
 
-Only Chromium is configured. The design covers Login, Reset Password, Logout, Profile Management, Power Bill Shock Warning, Usage, Billing, Plan Request, Sparky, Settings Change, FAQs, and Contact. Features are implemented and reviewed individually; the coverage inventory states what exists today.
+Only Chromium is configured. The design covers Login, Reset Password, Logout, Profile Management, Power Bill Shock Warning, Usage, Billing, Plan Request, Sparky, Settings Change, FAQs, and Contact. The coverage inventory describes the implemented scope of the retained baseline.
 
-Solar, Power Clash functionality, voice input, registration beyond its entry link, mobile, non-functional testing, and reading real uploaded bills are outside this suite. Bill-upload validation before reading remains in scope. Final acceptance, manual review, and portfolio presentation remain separate from Jenkins integration.
+Solar, Power Clash functionality, voice input, registration beyond its entry link, mobile, non-functional testing, and reading real uploaded bills are outside this suite. Bill-upload validation before reading remains in scope. The portfolio demonstrates the implemented test workflow and retained evidence. Human answer-quality review and final product acceptance remain pending; neither is implied by Jenkins integration.
