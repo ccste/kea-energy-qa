@@ -1,4 +1,4 @@
-# Kea Energy web E2E tests
+# Kea Energy — end-to-end testing portfolio
 
 Playwright + TypeScript end-to-end tests for Kea Energy, a University of Auckland Internship team project (2026).
 
@@ -6,29 +6,25 @@ This portfolio demonstrates browser-based functional testing, test-design tracea
 
 ## Portfolio baseline — 31 October 2026
 
-The published automation represents the **31 October 2026 baseline**. Across 12 features, all **173 design leaves** are mapped: **172 automated leaves produce 412 product-test rows**, while one Sparky answer-quality review leaf is reserved for human judgement. Sparky contributes 53 automated rows: 14 interface/file-validation rows and 39 live-answer rows. See [coverage](docs/coverage.md) for the feature mappings and design inventory.
+The published automation represents the **31 October 2026 baseline**. Across 12 features, all **173 test points (Xmind leaf nodes)** are mapped: **172 automated test points expand into 412 automated test cases**, while one test point requires human answer-quality review. A test point can produce several automated test cases for different accounts or inputs. See [coverage](docs/coverage.md) for the feature mappings and design inventory.
 
-A parameterized Jenkins pipeline supports `smoke`, `regression`, `sparky-live`, and `full` selections and publishes JUnit, Playwright HTML, and Allure reports. See the [Jenkins guide](docs/jenkins.md) for configuration and validation evidence. The implemented automation and Jenkins integration do not establish that all product tests pass; final product acceptance remains pending.
+A parameterized Jenkins pipeline supports `smoke`, `regression`, `sparky-live`, and `full` selections and publishes JUnit, Playwright HTML, and Allure reports. See the [Jenkins guide](docs/jenkins.md) for configuration and validation evidence.
 
-### Retained test evidence
+### Full AWS regression — 31 October 2026 (including live Sparky)
 
-| Evidence | Recorded outcome | Interpretation |
-|---|---|---|
-| Complete AWS regression, 31 October 2026 | **413 results including setup: 340 passed, 69 failed, 4 approved Monthly skips**; no retries | One actual execution, including product, service/environment, and test-assertion failures |
-| Separate targeted verification | **22 results: 16 passed, 6 failed**; no retries or skips | Follow-up execution; it does not replace the complete-run totals |
-| Case-by-case assessment of retained evidence | **57 cases with product-expectation failures: 39 from earlier features and 18 from Sparky** | Assessment across separate runs and offline assertion checks, not a single execution or a count of distinct bugs |
+**413 results including setup: 340 passed, 69 failed, and 4 approved Monthly skips; no retries.**
 
-The 69 failures in the complete run comprise 39 previously documented product failures, 11 Sparky product-assertion failures, 11 service/environment failures, and eight Sparky test-assertion errors. The eight test errors were corrected, and two additional driver checks were tightened after they accepted incomplete explanations. All seven earlier-feature service/wait cases passed targeted verification. See the [execution review](docs/sparky-coverage.md#execution-review) for the classification and follow-up results.
+This records one complete AWS execution, including live Sparky answers. The 69 failed results include product-expectation failures, service/environment failures, and test-assertion errors; they do not represent 69 distinct product bugs. Subsequent assertion corrections and targeted checks were not followed by another complete live run, so these totals are not a final corrected full-suite result. This historical run includes live answers; the Jenkins `regression` selection excludes them.
 
-For Sparky's 53 automated cases, the retained evidence satisfies the checked expectations for 35 cases and does not satisfy them for 18. The final source and usage-timing assertion corrections were checked offline against saved answers without another model call; the complete live selection was not rerun after those changes. The 57-case assessment excludes service/environment failures and identified test-assertion errors. See the [case assessment](docs/sparky-coverage.md#current-case-assessment) for its evidence and limitations.
+The [execution history and targeted verification](docs/sparky-coverage.md#raw-execution-history) retain the failure classification and follow-up results. The separate [case-by-case assessment](docs/sparky-coverage.md#current-case-assessment) reconciles evidence across runs and offline assertion checks; it is not another execution result or a count of distinct bugs.
 
-These are historical findings, not a statement of the deployed site's current condition. Live answers can vary between runs; a later pass alone does not invalidate an earlier evidenced failure or establish a fix. Known-defect tests retain the expected behaviour and fail normally. In the complete run, the four Monthly skips were Julia's and Priya's normal comparisons, two units each; the dedicated incomplete-Monthly behaviour test still ran and failed for #8. Settings Light and Dark baselines were accepted with that step's submission approval on 31 October 2026.
+These are historical findings, not a statement of the deployed site's current condition. Live answers can vary between runs; a later pass alone does not invalidate an earlier evidenced failure or establish a fix. Known-defect tests retain the expected behaviour and fail normally. The four skips concern normal Monthly comparisons with incomplete data; the dedicated incomplete-Monthly behaviour test still ran and failed for #8. See the [approved interpretations](docs/coverage.md#approved-interpretations) for the skip rules.
 
 ### Sparky human answer-quality review
 
 Automated functional checks and answer-evidence capture are implemented. A separate [manual review checklist](docs/manual-review.md) covers answer relevance, factual and numerical consistency, clarity, tone, unsupported causal claims, and handover wording. Automated checks support this review but do not establish the full quality of an explanation.
 
-**Human answer-quality review remains pending for this baseline.** It can be carried out by designated reviewers with relevant technical or business knowledge, such as QA, developers, product owners, or domain experts; it is not restricted to a Test Analyst. Completion requires an actual human assessment with the reviewer, date, answer samples, and conclusions recorded. The manual leaf represents this review activity, not a single answer or an additional automated test.
+**Human answer-quality review and final product acceptance remain pending for this baseline.** Designated reviewers with relevant technical or business knowledge must record an actual assessment with the reviewer, date, answer samples, and conclusions. The manual test point represents this review activity, not a single answer or an additional automated test case. Jenkins integration does not complete this review or establish that all product tests pass.
 
 ## Install and run
 
@@ -37,7 +33,6 @@ Run commands from this directory with Node.js 22.18 or later and npm installed:
 ```sh
 npm ci
 npx playwright install chromium
-npm test -- --workers 2
 ```
 
 `BASE_URL` defaults to `https://13.54.25.80`. Override it when the agreed deployed environment changes:
@@ -46,37 +41,73 @@ npm test -- --workers 2
 BASE_URL=https://13.54.25.80 npm test -- --workers 2
 ```
 
-The deployed site is shared with demonstrations. Use a small worker count and coordinate a clear test window. Every managed run restores alert preferences for all 15 demo accounts before preparing signed-in browser states.
+The deployed site is shared with demonstrations. Coordinate a clear test window and avoid overlapping runs. Every managed run restores alert preferences for all 15 demo accounts before preparing signed-in browser states.
 
-| Command | Selection |
-|---|---|
-| `npm test` | Implemented functional tests, excluding live `@ai` tests |
-| `npm test -- --grep @smoke --workers 2` | Implemented smoke tests |
-| `npm test -- tests/login --workers 2` | The complete Login feature |
-| `npm test -- tests/reset-password --workers 2` | All three Reset Password entry points |
-| `npm test -- tests/logout` | All seven Logout cases, with two workers by default |
-| `npm test -- tests/profile` | All 19 Profile tests; known findings remain visible as failures |
-| `npm test -- tests/usage` | All 132 Usage rows, with runtime Monthly eligibility and visible defect failures |
-| `npm test -- tests/billing` | All 41 Billing tests, including actual PDF downloads and account-wide outstanding balances |
-| `npm test -- tests/plans` | All 22 Plan Request tests; includes one real Customer Care request |
-| `npm test -- tests/plans --grep-invert 'Request a new plan'` | The other 21 Plan Request tests, with no real plan submission |
-| `npm test -- tests/help/faq` | All 31 FAQ tests; four search-count rows retain finding #35 |
-| `npm test -- tests/help/contact` | All five Contact tests; real clipboard copies and link targets; two visible-detail cases retain finding #31 |
-| `npm test -- tests/bill-shock` | All 43 Bill Shock tests: 37 reader cases followed by six isolated Rangi settings cases |
-| `npm test -- tests/settings` | All 17 Settings tests with one worker; includes Light/Dark viewport comparisons and five known-defect failures |
-| `npm test -- tests/sparky` | 14 chat-interface and invalid-file tests; no real model answers |
-| `npm run test:ai -- tests/sparky` | 39 live Sparky tests with one worker and no retries; answers retained for review |
-| `npm run test:all -- tests/sparky` | Both Sparky layers, with one shared setup |
-| `npm run test:ai` | Implemented live Sparky tests only |
-| `npm run test:all` | Implemented functional and live Sparky tests |
-| `npm run test:list` | List selected tests without signing in or resetting accounts |
-| `npm run typecheck` | Check TypeScript without running browser tests |
+### Run a suite
+
+These commands match the four Jenkins `SUITE` choices. Smoke is a subset of regression; full includes regression and live Sparky.
+
+| Jenkins selection | Command | Scope |
+|---|---|---|
+| `smoke` | `npm test -- --grep @smoke` | Core customer journeys |
+| `regression` | `npm test` | Functional tests, including Sparky interface/file-validation tests; excludes live `@ai` answers |
+| `sparky-live` | `npm run test:ai` | Live Sparky answers only |
+| `full` | `npm run test:all` | All functional and live Sparky tests |
+
+Regression and full include the permitted real Plan Request submission. Live selections record conversations and may incur model costs. See [shared-data behaviour](#authentication-and-shared-data) before execution.
+
+### Run a feature
+
+Counts below are automated test cases, excluding the shared setup result. Each feature links to its coverage, expectations, and recorded findings.
+
+| Feature | Command | Selection |
+|---|---|---|
+| [Login](docs/login-coverage.md) | `npm test -- tests/login` | 24 automated test cases |
+| [Reset Password](docs/reset-password-coverage.md) | `npm test -- tests/reset-password` | 18 automated test cases across all three entry points |
+| [Logout](docs/logout-coverage.md) | `npm test -- tests/logout` | 7 automated test cases |
+| [Profile](docs/profile-coverage.md) | `npm test -- tests/profile` | 19 automated test cases |
+| [Usage](docs/usage-coverage.md) | `npm test -- tests/usage` | 132 automated test cases; Monthly eligibility is evaluated at runtime |
+| [Billing](docs/billing-coverage.md) | `npm test -- tests/billing` | 41 automated test cases; actual PDF downloads and account-wide outstanding balances |
+| [Plan Request](docs/plan-request-coverage.md) | `npm test -- tests/plans` | 22 automated test cases; includes one real Customer Care request |
+| [FAQs](docs/faq-coverage.md) | `npm test -- tests/help/faq` | 31 automated test cases |
+| [Contact](docs/contact-coverage.md) | `npm test -- tests/help/contact` | 5 automated test cases; real clipboard copies and link targets |
+| [Bill Shock](docs/bill-shock-coverage.md) | `npm test -- tests/bill-shock` | 43 automated test cases: 37 reader cases, then 6 isolated settings cases |
+| [Settings](docs/settings-coverage.md) | `npm test -- tests/settings` | 17 automated test cases; one worker, including Light/Dark viewport comparisons |
+| [Sparky — interface](docs/sparky-coverage.md) | `npm test -- tests/sparky` | 14 automated test cases; chat interface and invalid-file validation |
+| [Sparky — live](docs/sparky-coverage.md) | `npm run test:ai -- tests/sparky` | 39 automated test cases; one worker, no retries, answers retained for review |
+| [Sparky — both layers](docs/sparky-coverage.md) | `npm run test:all -- tests/sparky` | All 53 automated test cases, with one shared setup |
+
+To run the other 21 Plan Request cases without the real submission:
+
+```sh
+npm test -- tests/plans --grep-invert 'Request a new plan'
+```
+
+### Local checks
+
+List selected tests and check TypeScript without signing in or resetting accounts:
+
+```sh
+npm run test:list
+npm run typecheck
+```
+
+The live-answer evidence helpers also have offline checks for stream handling, text comparison, and date/timing assertions. They make no AWS requests:
+
+```sh
+node --import tsx --test utils/chat-stream.test.ts utils/chat-text.test.ts utils/chat-dates.test.ts utils/chat-usage-timing.test.ts
+```
+
+### Execution behaviour
 
 The managed runner prepares the environment once, then executes selected phases in order: `setup` → `chromium` → `settings` → `ai`. Ordinary test failures are collected without preventing later phases from running. Setup failure stops the run because authentication or shared-data preconditions are not ready. Empty phases contribute no product-test results.
 
-The general functional phase uses two workers by default. Settings and live Sparky each use one. Rangi Paterson can be read during the first phase; settings writes begin only after readers finish. Plan Request's one permitted submission runs in the general phase because it records a request without changing the account's active plan or alert preferences. Run individual features through `npm test` so setup and shared-environment safeguards still apply.
+The general functional phase uses two workers by default. Settings and live Sparky each use one. Rangi Paterson can be read during the first phase; settings writes begin only after readers finish. Plan Request's one permitted submission runs in the general phase because it records a request without changing the account's active plan or alert preferences.
 
-`--workers 2` is optional when the `WORKERS` environment variable is unset: two is already the default. Runs are headless unless `--headed` is supplied. For example, `npm test -- tests/reset-password` runs the 18 Reset Password tests and the required setup result without visible browser windows.
+Use the managed npm entry points, including for individual features. Runs are headless unless `--headed` is supplied. `--workers 2` is optional when `WORKERS` is unset because two is already the default. The Microsoft Playwright extension can discover tests, but its Run and Debug buttons bypass the managed runner and are not supported execution entry points.
+
+<details>
+<summary>Runner safeguards and editor integration</summary>
 
 Project dependencies are intentionally not used: a failed prerequisite project would prevent its dependents from running, including failures that correctly expose known product defects. `scripts/run-suite.ts` waits for each phase, retains its exit code, and continues after product failures. It stops after setup failure. The runner also prevents overlapping local runs; do not run separate copies against the shared site concurrently.
 
@@ -85,6 +116,8 @@ Use the npm entry points instead of calling `playwright test` directly. An unmat
 `npm test` invokes `scripts/run-suite.ts`, which calls the installed Playwright CLI for each selected phase. The `--` separator forwards file selections and options such as `--headed` and `--workers` to that script. Tests and assertions still run in Playwright Test.
 
 The configuration can be loaded by editors without preparing accounts. Native read-only discovery such as `npx playwright test tests/reset-password --list` also works. The Microsoft Playwright extension can discover tests, but its Run and Debug buttons do not invoke the managed runner and are not supported execution entry points. Actual execution checks the managed run in a global hook and at the setup and fixture entries, before application requests. Use the terminal commands above to run tests; do not initialize a second Playwright project through the extension.
+
+</details>
 
 ## Structure
 
@@ -105,6 +138,11 @@ Page objects hold locators and customer actions; assertions remain in feature sp
 
 ## Authentication and shared data
 
+Credentials are fetched at runtime, each product test receives a fresh browser context, and expected values come from independent records or approved design expectations. Shared alert preferences are restored during setup and after settings tests, including failures. The feature-specific behaviour and boundaries are retained below and in the linked coverage documents.
+
+<details>
+<summary>Authentication, API guards, and side effects by feature</summary>
+
 - Credentials are fetched at runtime from `/api/auth/demo-accounts`. Never store passwords or tokens in source files.
 - Setup signs in through the browser once per account, dismisses the Welcome dialog, and saves browser state locally. Every product test gets a fresh browser context.
 - Login, Reset Password, and Logout use the sign-in form where their design requires it.
@@ -119,8 +157,9 @@ Page objects hold locators and customer actions; assertions remain in feature sp
 - FAQ uses Mere Kahu's saved sign-in state and enters Help & Support through the sidebar. Its 15 static answers and two notes have independent fixed expectations; no FAQ API client is needed. Topic filtering, searching, and expansion run in the browser. API writes are blocked, including chat submissions; the two no-match journeys only navigate to the assistant.
 - Contact shares the Help entry fixture and API write guard. It checks real clipboard copies, exact phone/email targets, visible contact details, and assistant navigation. Its single file runs cases in order with independent results to prevent clipboard interference in headed mode. Only Copy cases receive origin-scoped clipboard permissions; they seed and clear test-owned values. In headed mode this replaces the Mac clipboard; earlier contents are not captured or restored. No call, email, or chat is sent.
 - Bill Shock compares panel presentation with the browser's assessment response and uses visible Billing/Usage dates for the approved calendar-cycle assumption. Reader journeys block browser API writes. Six Rangi cases save settings through the UI in the later single-worker phase, confirm saved preferences and warning state, and restore full defaults through authenticated API calls. These cases are included by selecting `tests/bill-shock`; they do not implement the separate Settings feature. Notification delivery and forecast-model validation are outside this feature's scope.
-- Settings uses Rangi after the reader phase, with one worker and no retries. Preference writes are limited to his exact endpoint; full defaults are restored before and after every case. The theme is local to the current sign-in and must not save account preferences. Server-failure cases intercept only the relevant browser GET or PUT; normal saves and invalid-amount responses use the real service. Light and Dark screenshots cover the initial Settings viewport, with initial baselines captured on the Jenkins Mac and accepted with this step's submission approval. See [Settings coverage](docs/settings-coverage.md) for all 16 design leaves and the baseline-review process.
-- Live Sparky conversations are recorded by the deployed service and may incur model costs.
+- Settings uses Rangi after the reader phase, with one worker and no retries. Preference writes are limited to his exact endpoint; full defaults are restored before and after every case. The theme is local to the current sign-in and must not save account preferences. Server-failure cases intercept only the relevant browser GET or PUT; normal saves and invalid-amount responses use the real service. Light and Dark screenshots cover the initial Settings viewport, with initial baselines captured on the Jenkins Mac and accepted with that step's submission approval on 31 October 2026. See [Settings coverage](docs/settings-coverage.md) for all 16 test points and the baseline-review process.
+
+</details>
 
 Saved states, credentials, tokens, reports, and temporary evidence are excluded from version control. Report artifacts can contain session details and demo-account data; review them before sharing.
 
@@ -133,14 +172,6 @@ npm run report
 npm run report:allure
 npm run report:allure:open
 ```
-
-The live-answer evidence helpers have offline regression checks:
-
-```sh
-node --import tsx --test utils/chat-stream.test.ts utils/chat-text.test.ts utils/chat-dates.test.ts utils/chat-usage-timing.test.ts
-```
-
-They cover stream completion and reset, display-format comparison without dropping meaningful content, and dates with an unambiguous year stated earlier in the same sentence. They make no AWS requests.
 
 The pinned Allure command-line tool requires Java. Report outputs are `html/`, `allure-results/`, `allure-report/`, and `junit.xml` inside `reports/latest/`. Failure evidence uses screenshots and retained failure videos. A trace is recorded on the first retry; CI enables one retry for ordinary functional tests, while local runs, settings, and live Sparky default to no retries. The real Plan Request submission always disables retries. Setup retains no browser evidence because authentication carries credentials. Live Sparky tests also attach answers and stream evidence for [manual review](docs/manual-review.md).
 
