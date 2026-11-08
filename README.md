@@ -14,16 +14,20 @@ This is my personal QA portfolio, separate from the team's private GitHub organi
   <img src="docs/images/web-dashboard.jpg" alt="Kea Energy web dashboard signed in as the demo customer Ana Whitiora, showing the illustrative home energy flow and a Power Bill Shock Warning">
 </p>
 
-<!-- Add href attributes to the two anchors below when the public links are ready. -->
+<!-- Replace these fragment href values with the public Figma and YouTube URLs. -->
 <p align="center">
-  <a title="Figma prototype link to be added"><img src="docs/images/figma-icon.svg" height="20" alt="Figma">&nbsp; Figma prototype</a>
+  <a href="#figma-prototype"><img src="docs/images/figma-icon.svg" height="20" alt="Figma">&nbsp; Figma prototype</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a title="YouTube website demo link to be added"><img src="docs/images/youtube-icon.svg" height="20" alt="YouTube">&nbsp; Website demo</a>
-  <br>
-  <sub>Links to be added.</sub>
+  <a href="#website-demo"><img src="docs/images/youtube-icon.svg" height="20" alt="YouTube">&nbsp; Website demo</a>
 </p>
 
-[My contribution](#my-contribution) · [Test design](#test-design-and-coverage) · [Historical results](#historical-results) · [Jenkins evidence](#jenkins-pipeline-and-evidence) · [Install and run](#install-and-run)
+<p align="center">
+  <a href="#my-contribution">My contribution</a> ·
+  <a href="#test-design-and-coverage">Test design</a> ·
+  <a href="#historical-results">Historical results</a> ·
+  <a href="#jenkins-pipeline-and-evidence">Jenkins evidence</a> ·
+  <a href="#install-and-run">Install and run</a>
+</p>
 
 ## My contribution
 
@@ -46,10 +50,76 @@ The published automation represents the **31 October 2026 baseline**. Across 12 
 
 The overview connects the test design to automated checks and human review. The full Xmind map records the individual scenarios and expected behaviour.
 
-![Coverage overview: 173 test points across 12 features split into 172 automated test points producing 412 automated test cases, and 1 manual test point for pending human answer review](docs/images/test-design-overview.svg)
+```mermaid
+flowchart TB
+    subgraph designScope["Test design · 12 features"]
+        xmind["Xmind analysis<br/>173 test points"]
+        access["Access<br/>Login · Reset Password<br/>Logout"]
+        account["Account<br/>Profile Management<br/>Plan Request · Settings Change"]
+        energy["Energy<br/>Bill Shock · Usage<br/>Billing"]
+        support["Support<br/>Sparky AI · FAQs<br/>Contact"]
 
-<!-- Add the public Xmind share URL as an href when it is ready. -->
-<p><a title="Full Xmind test-point analysis link to be added">Full Xmind test-point analysis</a> <em>(link to be added)</em> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>
+        xmind --> access
+        xmind --> account
+        xmind --> energy
+        xmind --> support
+    end
+
+    subgraph automationScope["Automated implementation and execution"]
+        mapped["172 automated<br/>test points"]
+        inventory["412 automated test cases<br/>TypeScript / Playwright"]
+        localRun["Local terminal<br/>Managed npm commands"]
+        jenkins["Parameterized Jenkins<br/>smoke · regression<br/>sparky-live · full"]
+        runner["Managed npm runner<br/>Selected phases in sequence"]
+
+        mapped --> inventory --> runner
+        localRun --> runner
+        jenkins --> runner
+    end
+
+    access --> mapped
+    account --> mapped
+    energy --> mapped
+    support --> mapped
+
+    subgraph evidenceScope["Execution evidence"]
+        blobs["Merged phase<br/>blob reports"]
+        html["Playwright<br/>HTML"]
+        junit["JUnit XML"]
+        allureResults["Allure<br/>results"]
+        allureReport["Allure<br/>HTML"]
+        answers["Live answers<br/>and stream evidence"]
+
+        blobs --> html
+        blobs --> junit
+        allureResults -->|"Generate HTML"| allureReport
+    end
+
+    runner --> blobs
+    runner --> allureResults
+    runner --> answers
+
+    manual["1 manual<br/>test point"]
+    review["Human answer-quality<br/>review pending"]
+    support --> manual --> review
+    answers -.->|"Review samples"| review
+
+    classDef design fill:#f2edfa,stroke:#ac98ca,color:#30233f
+    classDef implementation fill:#edf3fb,stroke:#9eb5d2,color:#23354a
+    classDef pending fill:#fff5df,stroke:#d7b76f,color:#4f4020
+
+    class xmind,access,account,energy,support design
+    class mapped,inventory,runner implementation
+    class manual,review pending
+    style designScope fill:#f8f7fc,stroke:#d8d0e5,color:#30233f
+    style automationScope fill:#f4f7fb,stroke:#ccd8e8,color:#23354a
+    style evidenceScope fill:#f6f8fb,stroke:#ccd5df,color:#23354a
+```
+
+Features are grouped here for readability. Counts describe coverage, not passing results; suite selection determines which cases and phases run.
+
+<!-- Replace this fragment href with the public Xmind share URL. -->
+<p align="center"><a href="#xmind-test-points"><img src="docs/images/xmind-icon.svg" height="20" alt="Xmind">&nbsp; Full Xmind test-point analysis</a> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>
 
 ## Historical results
 
@@ -77,13 +147,13 @@ Jenkins runs locally on a Mac, with manually triggered builds and no overlapping
 
 ### Pipeline stages
 
-![Jenkins Stage View showing smoke builds 1 and 2, successful checkout, dependency installation and type checking, failed test stages, and completed post actions](docs/images/jenkins-stage-view.jpg)
+![Jenkins Stage View showing smoke builds 1 and 2, successful checkout, dependency installation and type checking, failed test stages, and completed post actions](docs/images/jenkins-stage-view.png)
 
 Checkout, dependency installation, and TypeScript checking completed in both builds. The test stage remained unsuccessful when a test exposed a product finding, while post actions still published the reports.
 
 ### Test results and report access
 
-![Jenkins build 2 test summary showing 15 results, 14 passed and 1 failed, with Tests, Playwright HTML and Allure Report links in the sidebar](docs/images/jenkins-smoke-results.jpg)
+![Jenkins build 2 test summary showing 15 results, 14 passed and 1 failed, with Tests, Playwright HTML and Allure Report links in the sidebar](docs/images/jenkins-smoke-results.png)
 
 Build **#2**, at revision `22faf6e`, recorded **15 results including setup: 14 passed and 1 failed**. The failure reproduced known Settings finding **#29**: the disabled Call channel left its threshold options enabled. The build remained unsuccessful, and Jenkins's Tests page and the published Playwright HTML and Allure reports retain the outcome and evidence.
 
