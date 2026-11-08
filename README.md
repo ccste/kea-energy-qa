@@ -46,17 +46,7 @@ The published automation represents the **31 October 2026 baseline**. Across 12 
 
 The overview connects the test design to automated checks and human review. The full Xmind map records the individual scenarios and expected behaviour.
 
-```mermaid
-flowchart LR
-    design["12 features / 173 test points"]
-    automated["172 automated test points"]
-    cases["412 automated test cases"]
-    manual["1 manual test point"]
-    review["Human answer review pending"]
-
-    design --> automated --> cases
-    design --> manual --> review
-```
+![Coverage overview: 173 test points across 12 features split into 172 automated test points producing 412 automated test cases, and 1 manual test point for pending human answer review](docs/images/test-design-overview.svg)
 
 <!-- Add the public Xmind share URL as an href when it is ready. -->
 <p><a title="Full Xmind test-point analysis link to be added">Full Xmind test-point analysis</a> <em>(link to be added)</em> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>

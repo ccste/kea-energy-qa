@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="266" viewBox="0 0 900 266" role="img" aria-labelledby="diagramTitle diagramDesc">
+  <title id="diagramTitle">Kea Energy test design and coverage overview</title>
+  <desc id="diagramDesc">The design covers 12 features and 173 test points. Of these, 172 automated test points expand into 412 automated test cases. One manual test point requires human answer-quality review, which remains pending. These are coverage counts, not passing test results.</desc>
+
+  <rect width="900" height="266" rx="16" fill="#ffffff"/>
+
+  <path d="M252 133 H286 V71 H322" fill="none" stroke="#8876ac" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M322 71 L314 66 L314 76 Z" fill="#8876ac"/>
+  <path d="M286 133 V195 H322" fill="none" stroke="#8876ac" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M322 195 L314 190 L314 200 Z" fill="#8876ac"/>
+  <path d="M560 71 H642" fill="none" stroke="#8876ac" stroke-width="2"/>
+  <path d="M642 71 L634 66 L634 76 Z" fill="#8876ac"/>
+  <path d="M560 195 H642" fill="none" stroke="#8876ac" stroke-width="2"/>
+  <path d="M642 195 L634 190 L634 200 Z" fill="#8876ac"/>
+
+  <rect x="20" y="86" width="232" height="94" rx="12" fill="#eee8fa" stroke="#a08abb" stroke-width="1.5"/>
+  <rect x="330" y="24" width="230" height="94" rx="12" fill="#f5f1fc" stroke="#b7a5d0" stroke-width="1.5"/>
+  <rect x="650" y="24" width="230" height="94" rx="12" fill="#eee8fa" stroke="#a08abb" stroke-width="1.5"/>
+  <rect x="330" y="148" width="230" height="94" rx="12" fill="#f5f1fc" stroke="#b7a5d0" stroke-width="1.5"/>
+  <rect x="650" y="148" width="230" height="94" rx="12" fill="#f5f1fc" stroke="#b7a5d0" stroke-width="1.5"/>
+
+  <text x="136" y="126" text-anchor="middle" fill="#30233f" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600">
+    <tspan x="136">12 features</tspan>
+    <tspan x="136" dy="28">173 test points</tspan>
+  </text>
+  <text x="445" y="64" text-anchor="middle" fill="#30233f" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600">
+    <tspan x="445">172 automated</tspan>
+    <tspan x="445" dy="28">test points</tspan>
+  </text>
+  <text x="765" y="64" text-anchor="middle" fill="#30233f" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600">
+    <tspan x="765">412 automated</tspan>
+    <tspan x="765" dy="28">test cases</tspan>
+  </text>
+  <text x="445" y="188" text-anchor="middle" fill="#30233f" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600">
+    <tspan x="445">1 manual</tspan>
+    <tspan x="445" dy="28">test point</tspan>
+  </text>
+  <text x="765" y="188" text-anchor="middle" fill="#30233f" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600">
+    <tspan x="765">Human answer</tspan>
+    <tspan x="765" dy="28">review pending</tspan>
+  </text>
+</svg>
