@@ -81,7 +81,7 @@ The application scrolls inside its main content container. Consequently, these i
 
 The initial baselines use **headless Chromium on the same Mac that will run Jenkins**, with the configured **1280 × 720** viewport. The resulting files live beside `theme.spec.ts` in its `-snapshots` directory and include the project/platform suffix selected by Playwright. Browser version, operating system, viewport and default saved settings must stay consistent when comparing them.
 
-**The user accepted the initial images with this step's submission approval on 31 October 2026, after receiving both baseline links and the validation report.** Automated generation or a matching comparison alone does not authorize baseline acceptance. Future baseline changes require review. A baseline captures the current appearance, including any visible consequences of existing functional defects; it is not evidence that those functional defects are acceptable or absent. The separate behavior assertions retain the correct requirements.
+**I reviewed and accepted the initial Light and Dark baselines on 31 October 2026.** Automated generation or a matching comparison alone does not authorize baseline acceptance. Future baseline changes require review. A baseline captures the current appearance, including any visible consequences of existing functional defects; it is not evidence that those functional defects are acceptable or absent. The separate behavior assertions retain the correct requirements.
 
 ## Privacy information
 
@@ -147,7 +147,7 @@ The five failures reproduced the four existing findings above: #29 affects both 
 
 All three theme cases passed. The unavailable-settings state, master switch, multi-field alert save, both invalid-amount boundaries, both simulated save failures, immediate reminder saves, and Privacy dialog also passed. Theme controls stayed synchronized without preference writes; reload/navigation retained Dark and logout/new sign-in restored Light. Reminder failure rolled back visibly, and both real 422 cases retained the previous saved amount. Cleanup completed without an unresolved failure.
 
-Both Light and Dark viewport comparisons passed against the generated Mac baselines. **The user accepted the initial baselines with this step's submission approval on 31 October 2026.** A matching comparison confirms repeatability; it does not establish absence of the separately recorded functional defects.
+Both Light and Dark viewport comparisons passed against the generated Mac baselines. **I reviewed and accepted the initial baselines on 31 October 2026.** A matching comparison confirms repeatability; it does not establish absence of the separately recorded functional defects.
 
 Initial validation also found two test-code issues: a disabled-fieldset assertion used a matcher that did not represent the native fieldset state, and an anchored error locator did not account for leading DOM whitespace. The fieldset check now verifies its native disabled attribute and the actual disabled child controls; the error locator finds the intended alert while the assertion still requires its complete expected text. Both corrected cases passed in the final run. These were test issues, not new product bugs.
 

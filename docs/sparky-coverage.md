@@ -6,7 +6,7 @@ The authoritative local Xmind and Markdown agree on all **29 Sparky design leave
 
 The 14 interface rows run in the regular Chromium phase. Chat responses are prepared SSE bodies; the three rejected-file rows exercise the deployed server's validation before any bill reader is called. The 39 live rows run in the later `ai` project with **one worker and no retries**. Every question is submitted through the page. Four rows receive deterministic hardship responses before the model; the follow-up row asks two questions, so a complete live selection normally requests **36 model answers**. Service-side behaviour may change this count. Conversations are recorded by the deployed service and model calls may incur costs.
 
-Both layers belong to the single Sparky implementation step. A single reviewed feature commit contains them; directory and execution separation do not require separate commits.
+Both execution layers belong to the same Sparky feature.
 
 Run from the standalone project directory:
 

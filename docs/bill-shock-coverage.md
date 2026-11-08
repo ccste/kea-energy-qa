@@ -48,7 +48,7 @@ No test rebuilds the forecast formula, confidence calculation, or general trigge
 
 ## Calendar-cycle assumption and UI-only oracle
 
-The user approved the design's calendar-period assumption: the current cycle follows the pattern displayed in Billing, from the first to the last day of a month, or the second to the first for Generated Demo Household. The project has ended and no further team confirmation will be sought. Each cycle test records this assumption in its report; it is not presented as a separately confirmed backend contract.
+I confirmed the calendar-period assumption for this test design: the current cycle follows the pattern displayed in Billing, from the first to the last day of a month, or the second to the first for Generated Demo Household. Each cycle test records this assumption in its report. It remains a test-design assumption, not a separately confirmed backend contract.
 
 The cycle tests read the newest invoice period from the Billing card and history, then read the date on which Usage opens. The next cycle starts the day after that invoice ends. Inclusive elapsed days and calendar-period length are calculated from these visible dates using UTC date-only arithmetic, avoiding daylight-saving offsets. Bill-shock API cycle fields are never used as expected values for this comparison.
 

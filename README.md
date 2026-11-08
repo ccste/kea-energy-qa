@@ -8,7 +8,7 @@
   <strong>TypeScript · Playwright · Allure Report · Jenkins</strong>
 </p>
 
-Kea Energy is a home energy advice product developed by our five-person HAKAS team during the University of Auckland's 10-week Challenge Internship in 2026. Its website and mobile application bring together electricity usage, billing, bill-shock warnings, plan comparison, and the Sparky conversational assistant to help customers understand their energy information. **My primary responsibility was QA**, alongside the website's UX/UI design and many frontend improvements.
+Kea Energy is a home energy advice product developed by our five-person HAKAS team during the University of Auckland's 10-week Challenge Internship in 2026. Its website and mobile application bring together electricity usage, billing, bill-shock warnings, plan comparison, and the Sparky conversational assistant to help customers understand their energy information. Our team placed second at the final AWS Challenge presentation. **My primary responsibility was QA**, alongside the website's UX/UI design and many frontend improvements.
 
 This repository showcases my QA work on Kea Energy and is separate from the team's private GitHub organisation repository. For privacy, it contains my complete standalone **web E2E functional test automation project** and supporting documentation, without the team's application source code. The tests use their own dependencies, require no local application stack, and import no application code.
 
@@ -135,7 +135,7 @@ This records one complete AWS execution, including live Sparky answers. The 69 f
 
 The [execution history and targeted verification](docs/sparky-coverage.md#raw-execution-history) retain the failure classification and follow-up results. The separate [case-by-case assessment](docs/sparky-coverage.md#current-case-assessment) reconciles evidence across runs and offline assertion checks; it is not another execution result or a count of distinct bugs.
 
-These are historical findings, not a statement of the deployed site's current condition. Live answers can vary between runs; a later pass alone does not invalidate an earlier evidenced failure or establish a fix. Known-defect tests retain the expected behaviour and fail normally. The four skips concern normal Monthly comparisons with incomplete data; the dedicated incomplete-Monthly behaviour test still ran and failed for #8. See the [approved interpretations](docs/coverage.md#approved-interpretations) for the skip rules.
+These are historical findings, not a statement of the deployed site's current condition. Live answers can vary between runs; a later pass alone does not invalidate an earlier evidenced failure or establish a fix. Known-defect tests retain the expected behaviour and fail normally. The four skips concern normal Monthly comparisons with incomplete data; the dedicated incomplete-Monthly behaviour test still ran and failed for [finding #8](docs/known-defects.md#finding-8). See the [approved interpretations](docs/coverage.md#approved-interpretations) for the skip rules.
 
 ### Sparky human answer-quality review
 
@@ -159,11 +159,13 @@ Checkout, dependency installation, and TypeScript checking completed in both bui
 
 ![Jenkins build 2 test summary showing 15 results, 14 passed and 1 failed, with Tests, Playwright HTML and Allure Report links in the sidebar](docs/images/jenkins-smoke-results.png)
 
-Build **#2**, at revision `22faf6e`, recorded **15 results including setup: 14 passed and 1 failed**. The failure reproduced known Settings finding **#29**: the disabled Call channel left its threshold options enabled. The build remained unsuccessful, and Jenkins's Tests page and the published Playwright HTML and Allure reports retain the outcome and evidence.
+Build **#2**, at revision `22faf6e`, recorded **15 results including setup: 14 passed and 1 failed**. The failure reproduced known Settings **[finding #29](docs/known-defects.md#finding-29)**: the disabled Call channel left its threshold options enabled. The build remained unsuccessful, and Jenkins's Tests page and the published Playwright HTML and Allure reports retain the outcome and evidence.
 
 These are screenshots of retained local builds; the Jenkins instance and its report URLs are not public portfolio links. See the [Jenkins guide](docs/jenkins.md) for configuration, suite selection, report publication, and execution safeguards.
 
 ## Install and run
+
+> **Environment availability:** This project uses a temporary AWS deployment. University-provided Amazon Bedrock access has been withdrawn, so live Sparky tests cannot currently complete successfully. Other tests still depend on the deployed website, and the original URL may become unavailable.
 
 Run commands from this directory with Node.js 22.18 or later and npm installed:
 
@@ -252,7 +254,7 @@ Use the npm entry points instead of calling `playwright test` directly. An unmat
 
 `npm test` invokes `scripts/run-suite.ts`, which calls the installed Playwright CLI for each selected phase. The `--` separator forwards file selections and options such as `--headed` and `--workers` to that script. Tests and assertions still run in Playwright Test.
 
-The configuration can be loaded by editors without preparing accounts. Native read-only discovery such as `npx playwright test tests/reset-password --list` also works. The Microsoft Playwright extension can discover tests, but its Run and Debug buttons do not invoke the managed runner and are not supported execution entry points. Actual execution checks the managed run in a global hook and at the setup and fixture entries, before application requests. Use the terminal commands above to run tests; do not initialize a second Playwright project through the extension.
+The configuration can be loaded by editors without preparing accounts. Native read-only discovery such as `npx playwright test tests/reset-password --list` also works. Actual execution checks the managed run in a global hook and at the setup and fixture entries, before application requests. Use the terminal commands above to run tests; do not initialize a second Playwright project through the extension.
 
 </details>
 
@@ -294,7 +296,7 @@ Credentials are fetched at runtime, each product test receives a fresh browser c
 - FAQ uses Mere Kahu's saved sign-in state and enters Help & Support through the sidebar. Its 15 static answers and two notes have independent fixed expectations; no FAQ API client is needed. Topic filtering, searching, and expansion run in the browser. API writes are blocked, including chat submissions; the two no-match journeys only navigate to the assistant.
 - Contact shares the Help entry fixture and API write guard. It checks real clipboard copies, exact phone/email targets, visible contact details, and assistant navigation. Its single file runs cases in order with independent results to prevent clipboard interference in headed mode. Only Copy cases receive origin-scoped clipboard permissions; they seed and clear test-owned values. In headed mode this replaces the Mac clipboard; earlier contents are not captured or restored. No call, email, or chat is sent.
 - Bill Shock compares panel presentation with the browser's assessment response and uses visible Billing/Usage dates for the approved calendar-cycle assumption. Reader journeys block browser API writes. Six Rangi cases save settings through the UI in the later single-worker phase, confirm saved preferences and warning state, and restore full defaults through authenticated API calls. These cases are included by selecting `tests/bill-shock`; they do not implement the separate Settings feature. Notification delivery and forecast-model validation are outside this feature's scope.
-- Settings uses Rangi after the reader phase, with one worker and no retries. Preference writes are limited to his exact endpoint; full defaults are restored before and after every case. The theme is local to the current sign-in and must not save account preferences. Server-failure cases intercept only the relevant browser GET or PUT; normal saves and invalid-amount responses use the real service. Light and Dark screenshots cover the initial Settings viewport, with initial baselines captured on the Jenkins Mac and accepted with that step's submission approval on 31 October 2026. See [Settings coverage](docs/settings-coverage.md) for all 16 test points and the baseline-review process.
+- Settings uses Rangi after the reader phase, with one worker and no retries. Preference writes are limited to his exact endpoint; full defaults are restored before and after every case. The theme is local to the current sign-in and must not save account preferences. Server-failure cases intercept only the relevant browser GET or PUT; normal saves and invalid-amount responses use the real service. Light and Dark screenshots cover the initial Settings viewport. I reviewed and accepted the initial baselines from the Jenkins Mac on 31 October 2026. See [Settings coverage](docs/settings-coverage.md) for all 16 test points and the baseline-review process.
 
 </details>
 

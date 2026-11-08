@@ -67,7 +67,7 @@ All five are ordinary failing tests with defect annotations and evidence. The fi
 | #4 | 1 failed Daily axis case | July's 24 labels include `NZST`; adjacent labels overlap at the configured 1280 × 720 viewport |
 | #6 | 1 failed estimated-readings case | Priya's Weekly estimated note appears, but all 24 Daily estimated hours lack a per-hour label, tooltip indication, or marker explained by a legend |
 | #7 | 1 failed internal missing-day case | Selecting Priya's missing 2024-06-10 silently returns to 2024-06-30 with no missing-day explanation |
-| #8 | 1 failed partial-Monthly case | Julia's Monthly view replaces 24 available days with `Something went wrong` and `This period has missing readings. Choose a shorter range or another date.` |
+| <a name="finding-8"></a>#8 | 1 failed partial-Monthly case | Julia's Monthly view replaces 24 available days with `Something went wrong` and `This period has missing readings. Choose a shorter range or another date.` |
 
 Usage produced 124 passes, four ordinary failures, and four approved Monthly skips. All 15 cross-page latest-day amounts agreed exactly, including cents. Clear-date behaviour passed. No new product finding was identified. See [Usage coverage](usage-coverage.md) for evidence, scope, and the data change that makes Mereana's Monthly rows applicable.
 
@@ -124,14 +124,14 @@ Bill Shock produced 36 passes and seven ordinary failures, with no retries or sk
 
 | Finding | Results | Observed behaviour |
 |---|---:|---|
-| #29 | 2 failed cases: saved settings and channel changes | The default off Call row is dimmed but its level choices remain enabled. Switching Email and Text off likewise dims their rows without disabling their level choices |
+| <a name="finding-29"></a>#29 | 2 failed cases: saved settings and channel changes | The default off Call row is dimmed but its level choices remain enabled. Switching Email and Text off likewise dims their rows without disabling their level choices |
 | #30 | 1 failed fixed-options case | After saving Email 40% and Call 90%, the Email 15% and Call 75% defaults disappear from their option sets and cannot be selected again |
 | #25 | 1 failed empty-amount case | Clearing the minimum amount changes it to zero; saving succeeds without required-amount validation and reload retains zero instead of the previous 20 |
 | #24 | 1 failed cross-section case | Email 30% saves successfully, but subsequently switching Bill reminders off writes the older Email 15% value; reload keeps reminders off and loses the Email change |
 
 Settings produced **12 passes and five ordinary failures**, with no retries or skips. The dedicated run included one passing setup result, giving **18 results: 13 passed and five failed**. These five failures represent four existing findings. All cases used Rangi in the single-worker Settings phase, with complete default restoration before and after each case. No additional product finding or unresolved cleanup failure was observed.
 
-All three theme cases, unavailable-settings handling, the master switch, multi-field alert saves, both real invalid-amount 422 cases, both simulated save failures, immediate reminder saves, and Privacy dialog behavior passed. Light and Dark comparisons also matched the generated Mac viewport baselines, and the user accepted those initial images with this step's submission approval on 31 October 2026. A matching screenshot does not make the functional failures acceptable. See [Settings coverage](settings-coverage.md) for all 16 leaves, 17 tests, screenshot scope and execution review.
+All three theme cases, unavailable-settings handling, the master switch, multi-field alert saves, both real invalid-amount 422 cases, both simulated save failures, immediate reminder saves, and Privacy dialog behavior passed. Light and Dark comparisons also matched the generated Mac viewport baselines, and I reviewed and accepted those initial images on 31 October 2026. A matching screenshot does not make the functional failures acceptable. See [Settings coverage](settings-coverage.md) for all 16 leaves, 17 tests, screenshot scope and execution review.
 
 Two initial failures were test-code issues and were corrected before the final run: the native disabled fieldset needed an attribute check alongside its disabled controls, and the alert locator needed to tolerate leading DOM whitespace while retaining an exact message assertion. Both cases then passed. They are not additional product findings.
 
