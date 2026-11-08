@@ -116,7 +116,7 @@ flowchart TB
     style evidenceScope fill:#f6f8fb,stroke:#ccd5df,color:#23354a
 ```
 
-Features are grouped here for readability. Counts describe coverage, not passing results; suite selection determines which cases and phases run.
+Features are grouped here for readability. Counts describe coverage, not passing results; suite selection determines which cases and phases run. [Open the full-size SVG](docs/images/test-design-overview.svg).
 
 <!-- Replace this fragment href with the public Xmind share URL. -->
 <p align="center"><a href="#xmind-test-points"><img src="docs/images/xmind-icon.svg" height="20" alt="Xmind">&nbsp; Full Xmind test-point analysis</a> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>
