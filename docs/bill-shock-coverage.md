@@ -1,6 +1,6 @@
 # Power Bill Shock Warning coverage
 
-The approved local Power Bill Shock Warning design contains **14 leaves**, implemented as **43 tests: 37 read-only cases and six Settings cases**. The local Xmind file and its Markdown export agree on these leaves and their shared notes. The local files are the authority; the older cloud copy is not used.
+The approved local Power Bill Shock Warning design contains **14 leaves**, implemented as **43 tests: 37 read-only cases and six Settings cases**. The local Xmind file and its Markdown export agree on these leaves and their shared notes.
 
 The feature opens from the chip at the top right of the Dashboard's 3D house. Every case uses a fresh browser context and setup-prepared authentication. The settings cases use the reserved Rangi Paterson account and run after all read-only cases.
 
