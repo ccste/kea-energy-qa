@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/kea-logo.svg" width="128" alt="Kea Energy logo">
+  <img src="docs/images/kea-logo.svg" width="112" alt="Kea Energy logo">
 </p>
 
 # Kea Energy — end-to-end testing portfolio
