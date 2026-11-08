@@ -2,7 +2,7 @@
   <img src="docs/images/kea-logo.svg" width="116" alt="Kea Energy logo">
 </p>
 
-<h1 align="center">Kea Energy — E2E Test Automation Portfolio</h1>
+<h1 align="center">Kea Energy — E2E Functional Test Automation</h1>
 
 <p align="center">
   <strong>TypeScript · Playwright · Allure Report · Jenkins</strong>
@@ -10,7 +10,7 @@
 
 Kea Energy is a home energy advice product developed by our five-person HAKAS team during the University of Auckland's 10-week Challenge Internship in 2026. Its website and mobile application bring together electricity usage, billing, bill-shock warnings, plan comparison, and the Sparky conversational assistant to help customers understand their energy information. **My primary responsibility was QA**, alongside the website's UX/UI design and many frontend improvements.
 
-This is my personal QA portfolio, separate from the team's private GitHub organisation repository. For privacy, it contains my complete standalone **web E2E functional test automation project** and supporting documentation, without the team's application source code. The tests use their own dependencies, require no local application stack, and import no application code.
+This repository showcases my QA work on Kea Energy and is separate from the team's private GitHub organisation repository. For privacy, it contains my complete standalone **web E2E functional test automation project** and supporting documentation, without the team's application source code. The tests use their own dependencies, require no local application stack, and import no application code.
 
 <p align="center">
   <img src="docs/images/web-dashboard.jpg" alt="Kea Energy web dashboard signed in as the demo customer Ana Whitiora, showing the illustrative home energy flow and a Power Bill Shock Warning">
@@ -50,7 +50,7 @@ The standalone web automation suite and Jenkins integration shown here were fina
 
 The published automation represents the **31 October 2026 baseline**. Across 12 features, all **173 test points (Xmind leaf nodes)** are mapped: **172 automated test points expand into 412 automated test cases**, while one test point requires human answer-quality review. A test point can produce several automated test cases for different accounts or inputs. See [coverage](docs/coverage.md) for the feature mappings and design inventory.
 
-The overview connects the test design to automated checks and human review. The full Xmind map records the individual scenarios and expected behaviour.
+The diagram groups features for readability and connects test design, automation, evidence, and human review. Counts describe coverage, not passing results; suite selection determines which cases and phases run. The full Xmind map records individual scenarios and expected behaviour.
 
 ```mermaid
 flowchart TB
@@ -118,10 +118,12 @@ flowchart TB
     style evidenceScope fill:#f6f8fb,stroke:#ccd5df,color:#23354a
 ```
 
-Features are grouped here for readability. Counts describe coverage, not passing results; suite selection determines which cases and phases run. [Open the full-size SVG](https://raw.githubusercontent.com/ccste/kea-energy-qa/refs/heads/main/docs/images/test-design-overview.svg).
-
 <!-- Replace this fragment href with the public Xmind share URL. -->
-<p align="center"><a href="#xmind-test-points"><img src="docs/images/xmind-icon.svg" width="24" height="24" align="absmiddle" alt="Xmind"></a>&nbsp;<a href="#xmind-test-points">Full Xmind test-point analysis</a> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>
+<p align="center">
+  <a href="#xmind-test-points"><img src="docs/images/xmind-icon.svg" width="24" height="24" align="absmiddle" alt="Xmind"></a>&nbsp;<a href="#xmind-test-points">Full Xmind test-point analysis</a> ·
+  <a href="docs/coverage.md">Coverage and feature mappings</a> ·
+  <a href="https://raw.githubusercontent.com/ccste/kea-energy-qa/refs/heads/main/docs/images/test-design-overview.svg">Full-size SVG</a>
+</p>
 
 ## Historical results
 
