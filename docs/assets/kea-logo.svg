@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="288" height="288" viewBox="-16 -16 288 288" fill="none" role="img" aria-label="Kea Energy">
+<title>Kea Energy</title>
+<style>
+.ring,.bolt{transform-box:view-box;transform-origin:128px 128px}
+.ring{animation:spin 5s linear infinite}
+.bolt{animation:flip 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes flip{0%{transform:scaleX(1.000)}2.083%{transform:scaleX(1.000)}4.167%{transform:scaleX(0.999)}6.25%{transform:scaleX(0.995)}8.333%{transform:scaleX(0.984)}10.417%{transform:scaleX(0.961)}12.5%{transform:scaleX(0.919)}14.583%{transform:scaleX(0.849)}16.667%{transform:scaleX(0.746)}18.75%{transform:scaleX(0.606)}20.833%{transform:scaleX(0.429)}22.917%{transform:scaleX(0.223)}25%{transform:scaleX(0.000)}27.083%{transform:scaleX(-0.223)}29.167%{transform:scaleX(-0.429)}31.25%{transform:scaleX(-0.606)}33.333%{transform:scaleX(-0.746)}35.417%{transform:scaleX(-0.849)}37.5%{transform:scaleX(-0.919)}39.583%{transform:scaleX(-0.961)}41.667%{transform:scaleX(-0.984)}43.75%{transform:scaleX(-0.995)}45.833%{transform:scaleX(-0.999)}47.917%{transform:scaleX(-1.000)}50%{transform:scaleX(-1.000)}52.083%{transform:scaleX(-1.000)}54.167%{transform:scaleX(-0.999)}56.25%{transform:scaleX(-0.995)}58.333%{transform:scaleX(-0.984)}60.417%{transform:scaleX(-0.961)}62.5%{transform:scaleX(-0.919)}64.583%{transform:scaleX(-0.849)}66.667%{transform:scaleX(-0.746)}68.75%{transform:scaleX(-0.606)}70.833%{transform:scaleX(-0.429)}72.917%{transform:scaleX(-0.223)}75%{transform:scaleX(0.000)}77.083%{transform:scaleX(0.223)}79.167%{transform:scaleX(0.429)}81.25%{transform:scaleX(0.606)}83.333%{transform:scaleX(0.746)}85.417%{transform:scaleX(0.849)}87.5%{transform:scaleX(0.919)}89.583%{transform:scaleX(0.961)}91.667%{transform:scaleX(0.984)}93.75%{transform:scaleX(0.995)}95.833%{transform:scaleX(0.999)}97.917%{transform:scaleX(1.000)}100%{transform:scaleX(1.000)}}
+@media (prefers-reduced-motion:reduce){.ring,.bolt{animation:none}}
+</style>
+<defs>
+<linearGradient id="bolt" x1="102" y1="61" x2="158" y2="197" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4318FF"/><stop offset=".54" stop-color="#5F45FF"/><stop offset="1" stop-color="#868CFF"/></linearGradient>
+
+</defs>
+<g>
+<g class="ring">
+<path d="M33 128A95 95 0 0 1 208.6 77.6" stroke="#868CFF" stroke-width="15" stroke-linecap="round"/>
+<path d="M226 96L222 68L197 85Z" fill="#868CFF" stroke="#868CFF" stroke-width="5" stroke-linejoin="round"/>
+<path d="M223 128A95 95 0 0 1 47.4 178.4" stroke="#868CFF" stroke-width="15" stroke-linecap="round"/>
+<path d="M30 160L34 188L59 171Z" fill="#868CFF" stroke="#868CFF" stroke-width="5" stroke-linejoin="round"/>
+</g>
+<g class="bolt">
+<path d="M143 54L137 110L166.5 119.4Q178 123 170.1 131.9L109 201L117 149L89 139.4Q79 136 87 125.8Z" fill="url(#bolt)" stroke="url(#bolt)" stroke-width="3.5" stroke-linejoin="round" transform="translate(-12.8 -12.8) scale(1.1)"/>
+</g>
+</g>
+</svg>
