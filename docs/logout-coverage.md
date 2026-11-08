@@ -30,7 +30,7 @@ These tests run in the ordinary Chromium phase and do not change shared alert se
 
 On 29 October 2026, `npm test -- --workers 2` ran headlessly against `https://13.54.25.80`. Setup completed first, followed by the functional tests with two Chromium workers. All **51 results passed**: seven Logout, 24 Login, 18 Reset Password, one Dashboard usage proof, and one setup result. There were no test failures, retries, or skips in this completed AWS run, and no new product defect was observed.
 
-An initial attempt could not launch Chromium inside the restricted execution sandbox and stopped before setup actions or product tests ran. The subsequent run used the required browser process permissions. This was an execution-environment issue, not a product failure or a test-script correction.
+An initial attempt could not launch Chromium and stopped before setup actions or product tests ran. This was an execution-environment issue, not a product failure or a test-script correction.
 
 `npm run typecheck` passed, and `npm run test:list -- tests/logout` listed exactly seven tests. Playwright HTML, Allure, and JUnit reports were generated and checked. Temporary authentication states and the run lock were removed after execution.
 

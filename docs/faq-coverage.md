@@ -64,7 +64,7 @@ The four search-matching rows carry **#35**, the existing suspected finding that
 
 ## Boundaries and commands
 
-All nine FAQ leaves have automated coverage. There are no manual-only leaves or approved skips for this feature. Contact calling, email and copy controls belong to the next feature. FAQ-to-assistant navigation is covered here; assistant conversations and answer quality remain in the later Sparky work.
+All nine FAQ leaves have automated coverage. There are no manual-only leaves or approved skips for this feature. Call, email and copy controls belong to the Contact feature. FAQ-to-assistant navigation is covered here; assistant conversations and answer quality belong to the Sparky feature.
 
 The normal runner uses headless Chromium and two functional-test workers by default. It preserves isolated browser contexts, execution-phase ordering, report generation, and temporary authentication cleanup.
 

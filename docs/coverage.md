@@ -57,7 +57,7 @@ The protected-route case is included in the Login totals. The summary proof was 
 - Track implementation and execution separately. A passing representative account does not cover other rows.
 - Preserve expected behaviour when an existing product defect is present.
 - Keep one result per affected case even when a root cause is shared.
-- Run each reviewed feature on the deployed site with few workers before advancing its coverage status.
+- Base execution status on recorded runs against the deployed site with a small number of workers.
 
 ## Approved interpretations
 

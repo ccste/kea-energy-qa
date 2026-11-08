@@ -39,7 +39,7 @@ The earlier code-review observation **#32** concerns a denied or failed clipboar
 
 Call now and Write email are checked as visible links with exact targets. Their href assertions run before the visible-contact-detail checks, so a missing phone number or address does not hide whether the target is correct. Neither link is clicked: operating-system phone and email applications are outside these browser checks. No call or email is sent.
 
-Ask Sparky verifies navigation only. The write guard prevents chat submission; the test does not ask for or evaluate a generated answer. Assistant conversation coverage belongs to the later Sparky feature.
+Ask Sparky verifies navigation only. The write guard prevents chat submission; the test does not ask for or evaluate a generated answer. Assistant conversation coverage belongs to the Sparky feature.
 
 All five Contact leaves are automated. There are no manual-only Contact leaves or approved skips. Both visible-detail assertions retain **#31** and the correct expectation; no expected-failure marker or defect-based skip hides the result.
 

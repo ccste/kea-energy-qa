@@ -120,4 +120,4 @@ The final run forwarded **one** plan-change POST for Low User Household (`H-TARI
 
 Playwright HTML, JUnit, and Allure agree on all 264 results; Allure contains 264 unique result identities. Report generation completed successfully, and temporary authentication state was removed. Attached evidence includes catalogue values, displayed daily units, comparison-table values and highlights, cross-page plan identity, the missing Retry control, and request bodies and receipts without token values. Reports remain local.
 
-Type checking passed. A separate temporary directory installed its own locked dependencies from the local cache, passed type checking, and discovered exactly 22 Plan Request tests across four spec files without application-source imports. Implementation and deployed-site validation are complete for this reviewed step.
+Type checking passed. A separate temporary directory installed its own locked dependencies from the local cache, passed type checking, and discovered exactly 22 Plan Request tests across four spec files without application-source imports. Implementation and deployed-site validation are complete.

@@ -100,7 +100,7 @@ npm run test:list -- tests/usage
 npm run report
 ```
 
-The managed runner and native discovery decision are unchanged. Native read-only Playwright discovery and editor discovery are supported; actual execution uses the npm runner so account preparation, phase ordering, reporting, and cleanup apply. An editor Run or Debug action that bypasses the runner is not a supported execution entry point.
+Native read-only Playwright discovery and editor discovery are supported; actual execution uses the npm runner so account preparation, phase ordering, reporting, and cleanup apply. An editor Run or Debug action that bypasses the runner is not a supported execution entry point.
 
 ## Execution review
 

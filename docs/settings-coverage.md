@@ -101,7 +101,7 @@ The test checks centring within the configured desktop viewport and verifies the
 
 Setup resets all 15 demo accounts before preparing sign-in states. During the Settings phase, the automatic alert-isolation fixture restores Rangi's complete default record with his runtime sign-in token before each test and in teardown after it, including after failures. Cleanup restores the managed preferences without overwriting contact details. Cleanup errors remain visible. API restoration is necessary while #30 prevents selecting the original Email and Call defaults again through the UI.
 
-Settings runs only after all reader cases, including Bill Shock's Rangi readers. The already approved managed runner uses ordered phases instead of project dependencies, so ordinary reader failures do not suppress the later Settings results. Setup failure stops product execution. One Settings worker provides sequencing without a failure-dependent serial group: one failed case must not skip the next one. Coordinate a test window on the shared deployment and avoid running writes during demonstrations.
+Settings runs only after all reader cases, including Bill Shock's Rangi readers. The managed runner uses ordered phases instead of project dependencies, so ordinary reader failures do not suppress the later Settings results. Setup failure stops product execution. One Settings worker provides sequencing without a failure-dependent serial group: one failed case must not skip the next one. Coordinate a test window on the shared deployment and avoid running writes during demonstrations.
 
 ## Defect references and scope boundaries
 
