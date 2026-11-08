@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/kea-logo.svg" width="128" alt="Kea Energy logo">
+  <img src="docs/images/kea-logo.svg" width="128" alt="Kea Energy logo">
 </p>
 
 # Kea Energy — end-to-end testing portfolio
@@ -9,7 +9,7 @@ Playwright + TypeScript end-to-end tests for Kea Energy, a University of Aucklan
 This portfolio demonstrates browser-based functional testing, test-design traceability, defect analysis, automated reporting, and parameterized Jenkins execution against the deployed Kea Energy customer website. It is a standalone test project with its own dependencies; it requires no local application stack and imports no application code.
 
 <p align="center">
-  <img src="docs/assets/web-dashboard.jpg" alt="Kea Energy web dashboard signed in as the demo customer Ana Whitiora, showing the illustrative home energy flow and a Power Bill Shock Warning">
+  <img src="docs/images/web-dashboard.jpg" alt="Kea Energy web dashboard signed in as the demo customer Ana Whitiora, showing the illustrative home energy flow and a Power Bill Shock Warning">
 </p>
 
 ## Portfolio baseline — 31 October 2026
