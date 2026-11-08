@@ -2,9 +2,11 @@
   <img src="docs/images/kea-logo.svg" width="116" alt="Kea Energy logo">
 </p>
 
-# Kea Energy — end-to-end testing portfolio
+<h1 align="center">Kea Energy — E2E Test Automation Portfolio</h1>
 
-**TypeScript · Playwright · Playwright HTML · Allure · Jenkins**
+<p align="center">
+  <strong>TypeScript · Playwright · Allure Report · Jenkins</strong>
+</p>
 
 Kea Energy is a home energy advice product developed by our five-person HAKAS team during the University of Auckland's 10-week Challenge Internship in 2026. Its website and mobile application bring together electricity usage, billing, bill-shock warnings, plan comparison, and the Sparky conversational assistant to help customers understand their energy information. **My primary responsibility was QA**, alongside the website's UX/UI design and many frontend improvements.
 
