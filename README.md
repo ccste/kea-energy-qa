@@ -41,8 +41,8 @@ The standalone web automation suite and Jenkins integration shown here were fina
 |---|---|
 | [Adi Sivakumar](https://github.com/adi-sivakumar) | Business and product management |
 | [Akash Nair](https://github.com/nair-akash) | AI |
-| [Sagar Nautiyal](https://github.com/SagarNautiyalGetIt) | Full-stack development |
 | [Harvey Nan](https://github.com/nanhangfei) | Data engineering |
+| [Sagar Nautiyal](https://github.com/SagarNautiyalGetIt) | Full-stack development |
 
 ## Test design and coverage
 
