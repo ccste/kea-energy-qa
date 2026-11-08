@@ -16,9 +16,9 @@ This is my personal QA portfolio, separate from the team's private GitHub organi
 
 <!-- Replace these fragment href values with the public Figma and YouTube URLs. -->
 <p align="center">
-  <a href="#figma-prototype"><img src="docs/images/figma-icon.svg" height="20" alt="Figma">&nbsp; Figma prototype</a>
+  <a href="#figma-prototype"><img src="docs/images/figma-icon.svg" height="20" align="absmiddle" alt="Figma"></a>&nbsp;<a href="#figma-prototype">Figma prototype</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="#website-demo"><img src="docs/images/youtube-icon.svg" height="20" alt="YouTube">&nbsp; Website demo</a>
+  <a href="#website-demo"><img src="docs/images/youtube-icon.svg" height="20" align="absmiddle" alt="YouTube"></a>&nbsp;<a href="#website-demo">Website demo</a>
 </p>
 
 <p align="center">
@@ -41,8 +41,8 @@ The standalone web automation suite and Jenkins integration shown here were fina
 |---|---|
 | [Adi Sivakumar](https://github.com/adi-sivakumar) | Business and product management |
 | [Akash Nair](https://github.com/nair-akash) | AI |
-| [Harvey Nan](https://github.com/nanhangfei) | Data engineering |
 | [Sagar Nautiyal](https://github.com/SagarNautiyalGetIt) | Full-stack development |
+| [Harvey Nan](https://github.com/nanhangfei) | Data engineering |
 
 ## Test design and coverage
 
@@ -119,7 +119,7 @@ flowchart TB
 Features are grouped here for readability. Counts describe coverage, not passing results; suite selection determines which cases and phases run. [Open the full-size SVG](docs/images/test-design-overview.svg).
 
 <!-- Replace this fragment href with the public Xmind share URL. -->
-<p align="center"><a href="#xmind-test-points"><img src="docs/images/xmind-icon.svg" height="20" alt="Xmind">&nbsp; Full Xmind test-point analysis</a> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>
+<p align="center"><a href="#xmind-test-points"><img src="docs/images/xmind-icon.svg" width="24" height="24" align="absmiddle" alt="Xmind"></a>&nbsp;<a href="#xmind-test-points">Full Xmind test-point analysis</a> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>
 
 ## Historical results
 
