@@ -4,19 +4,64 @@
 
 # Kea Energy — end-to-end testing portfolio
 
-Playwright + TypeScript end-to-end tests for Kea Energy, a University of Auckland Internship team project (2026).
+**TypeScript · Playwright · Playwright HTML · Allure · Jenkins**
 
-This portfolio demonstrates browser-based functional testing, test-design traceability, defect analysis, automated reporting, and parameterized Jenkins execution against the deployed Kea Energy customer website. It is a standalone test project with its own dependencies; it requires no local application stack and imports no application code.
+Kea Energy is a home energy advice product developed by our five-person HAKAS team during the University of Auckland's 10-week Challenge Internship in 2026. Its website and mobile application bring together electricity usage, billing, bill-shock warnings, plan comparison, and the Sparky conversational assistant to help customers understand their energy information. **My primary responsibility was QA**, alongside the website's UX/UI design and many frontend improvements.
+
+This is my personal QA portfolio, separate from the team's private GitHub organisation repository. For privacy, it contains my complete standalone **web E2E functional test automation project** and supporting documentation, without the team's application source code. The tests use their own dependencies, require no local application stack, and import no application code.
 
 <p align="center">
   <img src="docs/images/web-dashboard.jpg" alt="Kea Energy web dashboard signed in as the demo customer Ana Whitiora, showing the illustrative home energy flow and a Power Bill Shock Warning">
 </p>
 
-## Portfolio baseline — 31 October 2026
+<!-- Add href attributes to the two anchors below when the public links are ready. -->
+<p align="center">
+  <a title="Figma prototype link to be added"><img src="docs/images/figma-icon.svg" height="20" alt="Figma">&nbsp; Figma prototype</a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a title="YouTube website demo link to be added"><img src="docs/images/youtube-icon.svg" height="20" alt="YouTube">&nbsp; Website demo</a>
+  <br>
+  <sub>Links to be added.</sub>
+</p>
+
+[My contribution](#my-contribution) · [Test design](#test-design-and-coverage) · [Historical results](#historical-results) · [Jenkins evidence](#jenkins-pipeline-and-evidence) · [Install and run](#install-and-run)
+
+## My contribution
+
+- **QA and test automation:** analysed functional scenarios in Xmind, wrote and ran Playwright tests in TypeScript using VS Code, investigated failures, and produced Playwright HTML and Allure reports. I configured a parameterized Jenkins pipeline to run selected suites and publish their evidence.
+- **UX/UI and frontend improvements:** designed the high-fidelity website prototype in Figma and refined customer journeys, navigation, Plans and Help interactions, Dashboard integration, and Sparky's state feedback in collaboration with the developers.
+- **Teamwork and communication:** worked with the team in an office environment, using daily stand-ups, GitHub Projects, pull requests, and peer review to coordinate changes. Defect discussions used reproduction steps, expected behaviour, and supporting data so the relevant teammate could investigate.
+
+The standalone web automation suite and Jenkins integration shown here were finalised after the team's presentation. The wider product was a shared team effort:
+
+| Teammate | Main responsibility |
+|---|---|
+| [Adi Sivakumar](https://github.com/adi-sivakumar) | Business and product management |
+| [Akash Nair](https://github.com/nair-akash) | AI |
+| [Harvey Nan](https://github.com/nanhangfei) | Data engineering |
+| [Sagar Nautiyal](https://github.com/SagarNautiyalGetIt) | Full-stack development |
+
+## Test design and coverage
 
 The published automation represents the **31 October 2026 baseline**. Across 12 features, all **173 test points (Xmind leaf nodes)** are mapped: **172 automated test points expand into 412 automated test cases**, while one test point requires human answer-quality review. A test point can produce several automated test cases for different accounts or inputs. See [coverage](docs/coverage.md) for the feature mappings and design inventory.
 
-A parameterized Jenkins pipeline supports `smoke`, `regression`, `sparky-live`, and `full` selections and publishes JUnit, Playwright HTML, and Allure reports. See the [Jenkins guide](docs/jenkins.md) for configuration and validation evidence.
+The overview connects the test design to automated checks and human review. The full Xmind map records the individual scenarios and expected behaviour.
+
+```mermaid
+flowchart LR
+    design["12 features / 173 test points"]
+    automated["172 automated test points"]
+    cases["412 automated test cases"]
+    manual["1 manual test point"]
+    review["Human answer review pending"]
+
+    design --> automated --> cases
+    design --> manual --> review
+```
+
+<!-- Add the public Xmind share URL as an href when it is ready. -->
+<p><a title="Full Xmind test-point analysis link to be added">Full Xmind test-point analysis</a> <em>(link to be added)</em> · <a href="docs/coverage.md">Detailed coverage and feature mappings</a></p>
+
+## Historical results
 
 ### Full AWS regression — 31 October 2026 (including live Sparky)
 
@@ -33,6 +78,26 @@ These are historical findings, not a statement of the deployed site's current co
 Automated functional checks and answer-evidence capture are implemented. A separate [manual review checklist](docs/manual-review.md) covers answer relevance, factual and numerical consistency, clarity, tone, unsupported causal claims, and handover wording. Automated checks support this review but do not establish the full quality of an explanation.
 
 **Human answer-quality review and final product acceptance remain pending for this baseline.** Designated reviewers with relevant technical or business knowledge must record an actual assessment with the reviewer, date, answer samples, and conclusions. The manual test point represents this review activity, not a single answer or an additional automated test case. Jenkins integration does not complete this review or establish that all product tests pass.
+
+## Jenkins pipeline and evidence
+
+The [Jenkinsfile](Jenkinsfile) defines a **parameterized Jenkins pipeline** with four suite choices: `smoke`, `regression`, `sparky-live`, and `full`. It checks out the selected revision, installs dependencies and Chromium, checks TypeScript, runs tests, and publishes JUnit, Playwright HTML, and Allure reports. It does not build or deploy the application.
+
+Jenkins runs locally on a Mac, with manually triggered builds and no overlapping executions or automatic schedules. The two retained builds below both selected `smoke` on **31 October 2026**. They are separate from the full AWS regression above; the other suite choices are configured, but these screenshots do not claim they were executed in Jenkins.
+
+### Pipeline stages
+
+![Jenkins Stage View showing smoke builds 1 and 2, successful checkout, dependency installation and type checking, failed test stages, and completed post actions](docs/images/jenkins-stage-view.jpg)
+
+Checkout, dependency installation, and TypeScript checking completed in both builds. The test stage remained unsuccessful when a test exposed a product finding, while post actions still published the reports.
+
+### Test results and report access
+
+![Jenkins build 2 test summary showing 15 results, 14 passed and 1 failed, with Tests, Playwright HTML and Allure Report links in the sidebar](docs/images/jenkins-smoke-results.jpg)
+
+Build **#2**, at revision `22faf6e`, recorded **15 results including setup: 14 passed and 1 failed**. The failure reproduced known Settings finding **#29**: the disabled Call channel left its threshold options enabled. The build remained unsuccessful, and Jenkins's Tests page and the published Playwright HTML and Allure reports retain the outcome and evidence.
+
+These are screenshots of retained local builds; the Jenkins instance and its report URLs are not public portfolio links. See the [Jenkins guide](docs/jenkins.md) for configuration, suite selection, report publication, and execution safeguards.
 
 ## Install and run
 
@@ -184,14 +249,6 @@ npm run report:allure:open
 The pinned Allure command-line tool requires Java. Report outputs are `html/`, `allure-results/`, `allure-report/`, and `junit.xml` inside `reports/latest/`. Failure evidence uses screenshots and retained failure videos. A trace is recorded on the first retry; CI enables one retry for ordinary functional tests, while local runs, settings, and live Sparky default to no retries. The real Plan Request submission always disables retries. Setup retains no browser evidence because authentication carries credentials. Live Sparky tests also attach answers and stream evidence for [manual review](docs/manual-review.md).
 
 Defect annotations identify product findings without changing failures into passes. See [known defects](docs/known-defects.md). Each review records passes, individual failures classified as an existing defect, new finding, or test issue, and any automation limits.
-
-## Jenkins
-
-The [Jenkinsfile](Jenkinsfile) uses one `SUITE` choice: `smoke`, `regression`, `sparky-live`, or `full`. Smoke is a subset of regression; full runs regression followed by live Sparky tests. These choices reuse the existing npm commands and do not require additional tags.
-
-The pipeline checks out the selected repository, installs dependencies and Chromium, checks TypeScript, then runs the selected tests headlessly. It attempts to publish reports even after test failures. JUnit XML supplies Jenkins test counts and history; Playwright HTML and Allure provide readable steps and evidence. Allure uses the project's pinned command-line package, and HTML Publisher exposes both HTML reports. Failed tests and report-generation errors remain visible as unsuccessful builds.
-
-For this portfolio, Jenkins runs locally on the Mac and checks out the public portfolio repository into its own workspace. Builds are manually triggered with no overlapping executions or automatic schedules. This tests the existing AWS deployment; it does not build or deploy the application. See [configuration, commands, and report details](docs/jenkins.md).
 
 ## Scope and limitations
 

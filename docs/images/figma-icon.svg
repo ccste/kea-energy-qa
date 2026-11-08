@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 38 57" role="img" aria-labelledby="figma-title">
+  <title id="figma-title">Figma</title>
+  <path fill="#f24e1e" d="M9.5 0H19V19H9.5A9.5 9.5 0 0 1 9.5 0Z"/>
+  <path fill="#ff7262" d="M19 0H28.5A9.5 9.5 0 0 1 28.5 19H19Z"/>
+  <path fill="#a259ff" d="M9.5 19H19V38H9.5A9.5 9.5 0 0 1 9.5 19Z"/>
+  <circle fill="#1abcfe" cx="28.5" cy="28.5" r="9.5"/>
+  <path fill="#0acf83" d="M9.5 38H19V47.5A9.5 9.5 0 1 1 9.5 38Z"/>
+</svg>
