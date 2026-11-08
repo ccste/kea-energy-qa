@@ -1,6 +1,6 @@
 # Sparky coverage
 
-The authoritative local Xmind and Markdown agree on all **29 Sparky design leaves and their notes**. They map to **28 automated leaves, expanded to 53 tests**, and **one manual answer-quality review leaf**. The local design is used; the older cloud copy is not an oracle.
+The authoritative local Xmind and Markdown agree on all **29 Sparky design leaves and their notes**. They map to **28 automated leaves, expanded to 53 tests**, and **one manual answer-quality review leaf**.
 
 ## Two execution layers, one feature
 

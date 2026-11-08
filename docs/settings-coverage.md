@@ -1,6 +1,6 @@
 # Settings coverage
 
-The approved local Settings Change design contains **16 leaves**, implemented as **17 tests**. All 16 leaves and all 21 plain notes, including the shared rules, agree between the local Xmind file and its Markdown export after whitespace and blockquote normalization. The local files are authoritative.
+The approved local Settings Change design contains **16 leaves**, implemented as **17 tests**. All 16 leaves and all 21 plain notes, including the shared rules, agree between the local Xmind file and its Markdown export after whitespace and blockquote normalization.
 
 Only **Amount outside $0–$500** is explicitly data-driven, with separate results for `501` and `-5`. Dark and Light screenshots, the three channel changes, reminders off and on, and the three Privacy dialog dismissal methods remain checkpoints inside their respective design leaves. They are not counted as additional tests.
 
