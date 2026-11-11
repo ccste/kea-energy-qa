@@ -16,11 +16,10 @@ This repository showcases my QA work on Kea Energy and is separate from the team
   <img src="docs/images/web-dashboard.jpg" alt="Kea Energy web dashboard signed in as the demo customer Ana Whitiora, showing the illustrative home energy flow and a Power Bill Shock Warning">
 </p>
 
-<!-- Replace these fragment href values with the public Figma and YouTube URLs. -->
 <p align="center">
-  <a href="#figma-prototype"><img src="docs/images/figma-icon.svg" height="20" align="absmiddle" alt="Figma"></a>&nbsp;<a href="#figma-prototype">Figma prototype</a>
+  <a href="https://www.figma.com/proto/hEsoZ98ugqF5OjWHwr7WCl/Sprint-2-Website-Prototype?node-id=0-1&t=vk7hz53dN7Dubrsn-1"><img src="docs/images/figma-icon.svg" height="20" align="absmiddle" alt="Figma"></a>&nbsp;<a href="https://www.figma.com/proto/hEsoZ98ugqF5OjWHwr7WCl/Sprint-2-Website-Prototype?node-id=0-1&t=vk7hz53dN7Dubrsn-1">Figma prototype</a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="#website-demo"><img src="docs/images/youtube-icon.svg" height="20" align="absmiddle" alt="YouTube"></a>&nbsp;<a href="#website-demo">Website demo</a>
+  <a href="https://www.youtube.com/watch?v=KvW6OHjj6F4"><img src="docs/images/youtube-icon.svg" height="20" align="absmiddle" alt="YouTube"></a>&nbsp;<a href="https://www.youtube.com/watch?v=KvW6OHjj6F4">Website demo</a>
 </p>
 
 <p align="center">
@@ -118,9 +117,8 @@ flowchart TB
     style evidenceScope fill:#f6f8fb,stroke:#ccd5df,color:#23354a
 ```
 
-<!-- Replace this fragment href with the public Xmind share URL. -->
 <p align="center">
-  <a href="#xmind-test-points"><img src="docs/images/xmind-icon.svg" width="24" height="24" align="absmiddle" alt="Xmind"></a>&nbsp;<a href="#xmind-test-points">Full Xmind test-point analysis</a> ·
+  <a href="https://app.xmind.com/share/jocDNFLs"><img src="docs/images/xmind-icon.svg" width="24" height="24" align="absmiddle" alt="Xmind"></a>&nbsp;<a href="https://app.xmind.com/share/jocDNFLs">Full Xmind test-point analysis</a> ·
   <a href="docs/coverage.md">Coverage and feature mappings</a> ·
   <a href="https://raw.githubusercontent.com/ccste/kea-energy-qa/refs/heads/main/docs/images/test-design-overview.svg">Full-size SVG</a>
 </p>
